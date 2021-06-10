@@ -10,18 +10,28 @@
 using F = CF<6>;
 
 class H {
+public:
+  using value_type = std::array<F, 2>;
+  value_type getVal() const { return val; }
 private:
- std::array<F, 2> val;
+ value_type val;
 };
 
 std::ostream& operator<< (std::ostream&, const H& a);
 
 using monomial = std::vector<std::pair<H, int> >;
 bool operator< (const monomial&, const monomial&);
+std::ostream& operator<< (std::ostream&, const monomial&);
 
 class S {
+public:
+  using value_type = std::map<monomial, F>;
+  using iterator = value_type::iterator;
+  using const_iterator = value_type::const_iterator;
+  const_iterator begin() const { return val.begin(); }
+  const_iterator end() const { return val.end(); }
 private:
-  std::map<monomial, F> val;
+  value_type val;
 };
 
 std::ostream& operator<< (std::ostream&, const S& v);
