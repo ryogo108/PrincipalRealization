@@ -27,7 +27,7 @@ template <int p> class CF {
   typedef NTL::ZZX ZZX;
   typedef NTL::ZZX::coeff_type coeff_type;
 public:
-  CF() {}
+  CF() { num = ZZX(0); den = ZZX(1);}
   CF(coeff_type a) { num = ZZX(a); den = ZZX(1); }
   CF(long a) { num = ZZX(a); den = ZZX(1); }
   CF(const ZZX& f, const ZZX& g = ZZX(1)) { create(f, g); }
