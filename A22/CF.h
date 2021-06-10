@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-NTL::ZZX phi(int p)
+static NTL::ZZX phi(int p)
 {
   using namespace NTL;
   Vec<ZZX> phi(INIT_SIZE, 100);  
