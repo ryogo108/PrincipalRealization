@@ -79,7 +79,7 @@ private:
 
 std::ostream& operator<< (std::ostream&, const S& v);
 
-S& operator*(const Factor&, S&);
+S operator*(const Factor&, const S&);
 
 class Action {
 public:
