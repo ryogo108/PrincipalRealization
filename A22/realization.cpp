@@ -40,6 +40,11 @@ ostream& operator<< (ostream& os, const S& v)
   return os << endl;
 }
 
+bool operator== (const H& lhs, const H& rhs)
+{
+  return lhs.getVal() == rhs.getVal();
+}
+
 bool operator< (const Monomial& lhs, const Monomial& rhs)
 {
   if(lhs.size() != rhs.size()) return lhs.size() < rhs.size();
