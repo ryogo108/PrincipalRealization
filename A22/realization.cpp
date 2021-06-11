@@ -49,6 +49,15 @@ S operator* (const X& x, const S& v)
   return v;
 }
 
+H H::proj(int n) const
+{
+  if((n - 1) % CoxeterNum == 0)
+    return H(val[0], F(0));
+  if((n + 1) % CoxeterNum == 0)
+    return H(F(0), val[1]);
+  return H(F(0), F(0));
+}
+
 std::pair<S::iterator, bool> S::insert(S::value_type::value_type x)
 {
   return val.insert(x);
