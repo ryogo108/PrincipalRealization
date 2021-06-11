@@ -27,7 +27,15 @@ private:
 
 std::ostream& operator<< (std::ostream&, const H& a);
 
-using monomial = std::vector<std::pair<H, int> >;
+class Monomial {
+public:
+  using value_type = std::vector<std::pair<H, int> >;
+  Monomial() {}
+  Monomial(const value_type& v) : val(v) {}
+private:
+  value_type val;
+};
+
 bool operator< (const monomial&, const monomial&);
 std::ostream& operator<< (std::ostream&, const monomial&);
 
