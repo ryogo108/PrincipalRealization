@@ -79,9 +79,10 @@ class Action {
 public:
   using value_type = std::vector<Factor>;
 private:
-  S& operator*(S&);
   value_type val;
 };
+
+S& operator*(const Action&, S&);
 
 class X {
 public:
