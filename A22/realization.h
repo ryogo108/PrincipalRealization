@@ -37,7 +37,8 @@ public:
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
 
-  F unifyCoeff();
+  F getCoeff() const;
+  void unifyCoeff();
 private:
   void proj();
   value_type val;
@@ -51,7 +52,7 @@ public:
   using value_type = std::map<Monomial, F>;
   using iterator = value_type::iterator;
   using const_iterator = value_type::const_iterator;
-  using Term = value_type::value_type;
+  using Term = std::pair<Monomial, F>;
 
   S() {}
 
