@@ -10,6 +10,11 @@ ostream& operator<< (ostream& os, const H& a)
   return os << "(" << val[0] << ", " << val[1] << ")";
 }
 
+ostream& operator<< (ostream& os, const Factor& f)
+{
+  return os << f.first << "(" << f.second << ")";
+}
+
 ostream& operator<< (ostream& os, const Monomial& m)
 {
   os << "[";
@@ -225,12 +230,21 @@ S append(const Factor& f, const S& v)
   return ret;
 }
 
+Factor deriveTarget(int n)
+{
+  if (n <= 0) return Factor();
+  if((n - 1) % 6 == 0)
+    return Factor(H(F(0), F(1)), -n);
+  if((n + 1) % 6 == 0)
+    return Factor(H(F(1), F(0)), -n);
+  return Factor();
+}
+
 S derive(Factor f, const S::Term& t)
 {
   S ret;
   const F coeff = getCoeff(f);
-  f = unifyCoeff(f);
-  Factor target(f.first, -f.second);
+  Factor target = deriveTarget(f.second);
   Monomial m = t.first;
   const unsigned int mul = count(m.begin(), m.end(), target);
   if(mul == 0) return ret;
