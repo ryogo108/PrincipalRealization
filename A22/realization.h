@@ -28,6 +28,8 @@ private:
 
 std::ostream& operator<< (std::ostream&, const H& a);
 
+using Factor = std::pair<H, int>;
+
 class Monomial {
 public:
   using value_type = std::vector<std::pair<H, int> >;
@@ -70,6 +72,16 @@ private:
 };
 
 std::ostream& operator<< (std::ostream&, const S& v);
+
+S& operator*(const Factor&, S&);
+
+class Action {
+public:
+  using value_type = std::vector<Factor>;
+private:
+  S& operator*(S&);
+  value_type val;
+};
 
 class X {
 public:
