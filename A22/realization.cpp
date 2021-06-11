@@ -41,7 +41,16 @@ ostream& operator<< (ostream& os, const S& v)
 
 bool operator< (const Monomial& lhs, const Monomial& rhs)
 {
-  return true;
+  if(lhs.size() != rhs.size()) return lhs.size() < rhs.size();
+  Monomial::const_iterator it1 = lhs.begin();
+  Monomial::const_iterator it2 = rhs.begin();
+  while(it1 != lhs.end()) {
+    if(it1 -> second != it2 -> second)
+      return it1 -> second < it2 -> second;
+    it1++;
+    it2++;
+  }
+  return false;
 }
 
 S operator* (const X& x, const S& v)
