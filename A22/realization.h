@@ -51,12 +51,18 @@ public:
   using value_type = std::map<Monomial, F>;
   using iterator = value_type::iterator;
   using const_iterator = value_type::const_iterator;
+
+  S() {}
+  S(const value_type& v) : val(v) { normalize(); }
+
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
 
   std::pair<iterator, bool> insert(value_type::value_type);
+
 private:
   value_type val;
+  void normalize();
 };
 
 std::ostream& operator<< (std::ostream&, const S& v);
