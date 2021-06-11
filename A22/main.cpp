@@ -20,13 +20,14 @@ int main()
        << "alpha2 = " << alpha2 << endl
        << endl;
 
-  H a = H(F(0), F(1));
+  H a = alpha1;
   S v;
-  v.insert(std::make_pair(Monomial({Factor(a, -1)}), F(1)));
+  v.insert(std::make_pair(Monomial({Factor(a, -1), Factor(a, -1), Factor(a, -1)}), F(1)));
   cout << "a = " << a << endl;
   cout << "v = " << v << endl;
-  cout << "Factor(a, -1) * v = " << Factor(a, -1) * v << endl
-       << "Factor(a, 1) * v = " << Factor(a, 1) * v << endl;
+  cout << "Factor(a, 1) * (Factor(a, -1) * v)= " << Factor(a, 1) * (Factor(a, -1) * v) << endl;
+  cout << "Factor(a, -1) * (Factor(a, 1) * v)= " << Factor(a, -1) * (Factor(a, 1) * v) << endl;
+  cout << "E_minus(a, -3) * v = " << E_minus(a, -3) * v << endl;
   cout << "X(a, -3) * v = " << X(a, -3) * v << endl;
   return 0;
 }
