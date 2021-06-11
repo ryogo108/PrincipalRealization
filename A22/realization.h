@@ -30,7 +30,7 @@ std::ostream& operator<< (std::ostream&, const H& a);
 bool operator==(const H&, const H&);
 
 using Factor = std::pair<H, int>;
-std::ostream operator<< (std::ostream&, const Factor&);
+std::ostream& operator<< (std::ostream&, const Factor&);
 Factor proj(const Factor& f);
 F getCoeff(const Factor& f);
 Factor unifyCoeff(const Factor& f);
