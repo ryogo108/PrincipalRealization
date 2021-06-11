@@ -206,6 +206,15 @@ S& operator*(const Action& a, S& v)
   return v;
 }
 
+S& operator*(const Actions& a, S& v)
+{
+  for(Actions::const_iterator iter = a.begin();
+      iter != a.end(); ++iter) {
+    v += (*iter) * v;
+  }
+  return v;
+}
+
 void Monomial::push(const Factor& f)
 {
   val.push_back(::proj(f));
