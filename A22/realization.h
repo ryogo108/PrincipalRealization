@@ -41,6 +41,8 @@ public:
   const_iterator end() const { return val.end(); }
   value_type::size_type size() const { return val.size(); }
 
+  void push(const Factor&);
+
   F getCoeff() const;
   void unifyCoeff();
 private:
