@@ -7,12 +7,18 @@
 #include <map>
 #include "CF.h"
 
-using F = CF<6>;
+const int CoxeterNum = 6;
+using F = CF<CoxeterNum>;
 
+// H is a 2-dim Vector sp with basis.
 class H {
 public:
   using value_type = std::array<F, 2>;
+  H() {}
+  H(const value_type& v) : val(v) {}
+  H(const F& v1, const F& v2) : val({v1, v2}) {}
   value_type getVal() const { return val; }
+
 private:
  value_type val;
 };
