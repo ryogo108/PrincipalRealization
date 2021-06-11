@@ -27,7 +27,10 @@ int main()
 
   H a = alpha1;
   S v;
-  v.insert(std::make_pair(Monomial({std::make_pair(a, -1)}), F(1)));
+  v.insert(std::make_pair(Monomial({Factor(a, -1),
+                                    Factor(a, -5),
+                                    Factor(a, -1),
+                                    Factor(a, -7)}), F(1)));
   cout << "a = alpha1 = " << a << endl;
   cout << "v = " << v << endl;
   cout << "X(a, -3) * v = " << X(a, -3) * v << endl;

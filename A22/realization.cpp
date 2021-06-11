@@ -78,7 +78,7 @@ F H::getProjVal(int n) const
 
 void Monomial::sort()
 {
-  std::sort(val.begin(), val.end(), [](const std::pair<H, int>& lhs, const std::pair<H, int>& rhs){
+  std::sort(val.begin(), val.end(), [](const Factor& lhs, const Factor& rhs){
     return lhs.second < rhs.second;
   });
 }

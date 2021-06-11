@@ -32,7 +32,7 @@ using Factor = std::pair<H, int>;
 
 class Monomial {
 public:
-  using value_type = std::vector<std::pair<H, int> >;
+  using value_type = std::vector<Factor>;
   using const_iterator = value_type::const_iterator;
 
   Monomial() {}
