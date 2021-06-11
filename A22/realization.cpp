@@ -69,6 +69,6 @@ void Monomial::proj()
 
 std::pair<S::iterator, bool> S::insert(Term x)
 {
-  auto ret = val.insert(x);
+  auto ret = val.insert(unify(x));
   return ret;
 }
