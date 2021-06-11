@@ -71,6 +71,7 @@ public:
 private:
   value_type val;
   Term& unify(Term&);
+  void omit();
 };
 
 std::ostream& operator<< (std::ostream&, const S& v);
