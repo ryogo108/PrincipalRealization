@@ -86,6 +86,24 @@ F Monomial::getCoeff() const
   return ret;
 }
 
+void Monomial::unifyCoeff()
+{
+  for(value_type::iterator iter = val.begin();
+      iter != val.end(); ++iter) {
+    if((iter -> second - 1) % 6 == 0) {
+      (iter -> first) = H(F(1), F(0));
+      continue;
+    }
+
+    if((iter -> second + 1) % 6 == 0) {
+      (iter -> first) = H(F(0), F(1));
+      continue;
+    }
+
+    (iter -> first) = H(F(0), F(0));
+  }
+}
+
 std::pair<S::iterator, bool> S::insert(Term x)
 {
   auto ret = val.insert(unify(x));
