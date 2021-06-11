@@ -37,6 +37,7 @@ public:
   Monomial(const value_type& v) : val(v) { sort(); proj(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
+  value_type::size_type size() const { return val.size(); }
 
   F getCoeff() const;
   void unifyCoeff();
