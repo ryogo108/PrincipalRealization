@@ -95,6 +95,12 @@ void CF<p>::normalize()
 }
 
 template <int p>
+bool operator==(const CF<p>& lhs, const CF<p>& rhs)
+{
+  return lhs.getNum() * rhs.getDen() == lhs.getDen() * rhs.getNum();
+}
+
+template <int p>
 CF<p> CF<p>::operator+=(const CF& rhs)
 {
   num = num * rhs.den
