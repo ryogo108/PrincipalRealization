@@ -84,6 +84,12 @@ void Monomial::sort()
   });
 }
 
+Factor proj(const Factor& f)
+{
+  Factor ret = Factor(f.first.proj(f.second), f.second);
+  return ret;
+}
+
 void Monomial::proj()
 {
   for(value_type::iterator iter = val.begin();
@@ -168,6 +174,12 @@ S& operator*(const Action& a, S& v)
     v += (*riter) * v;
   }
   return v;
+}
+
+void Monomial::push(const Factor& f)
+{
+  val.push_back(::proj(f));
+  sort();
 }
 
 Monomial append(const Factor& f, Monomial m)
