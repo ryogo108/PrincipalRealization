@@ -250,7 +250,7 @@ S derive(Factor f, const S::Term& t)
   if(mul == 0) return ret;
   Monomial::const_iterator it = find(m.begin(), m.end(), target);
   m.erase(it);
-  ret.insert(make_pair(m, coeff * t.second * F(mul * 3 * f.second)));
+  ret.insert(make_pair(m, coeff * t.second * F(mul * 3 * f.second) / F(CoxeterNum)));
   return ret;
 }
 
