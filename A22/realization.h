@@ -33,11 +33,11 @@ public:
   using const_iterator = value_type::const_iterator;
 
   Monomial() {}
-  Monomial(const value_type& v) : val(v) {}
-
+  Monomial(const value_type& v) : val(v) { proj(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
 private:
+  void proj();
   value_type val;
 };
 
