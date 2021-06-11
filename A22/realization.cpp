@@ -199,7 +199,18 @@ S append(const Factor& f, const S& v)
   }
   return ret;
 }
-S derive(const Factor& f, const S& v);
+
+S derive(const Factor& f, const S::Term& t);
+
+S derive(const Factor& f, const S& v)
+{
+  S ret;
+  for(S::const_iterator iter = v.begin();
+      iter != v.end(); ++iter) {
+    ret += derive(f, *iter);
+  }
+  return ret;
+}
 
 S operator*(const Factor& f, const S& v)
 {
