@@ -132,3 +132,12 @@ S::Term& S::unify(Term& x)
   x.first.unifyCoeff();
   return x;
 }
+
+S& operator*(const Action& a, S& v)
+{
+  for(Action::const_reverse_iterator riter = a.rbegin();
+      riter != a.rend(); ++riter) {
+    v += (*riter) * v;
+  }
+  return v;
+}

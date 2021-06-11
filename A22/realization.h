@@ -78,9 +78,11 @@ S& operator*(const Factor&, S&);
 class Action {
 public:
   using value_type = std::vector<Factor>;
-  using const_iterator = value_type::const_iterator;
-  const_iterator begin() const { return val.begin(); }
-  const_iterator end() const { return val.end(); }
+  using const_reverse_iterator = value_type::const_reverse_iterator;
+  Action() {}
+  Action(const value_type& v) : val(v) {}
+  const_reverse_iterator rbegin() const { return val.rbegin(); }
+  const_reverse_iterator rend() const { return val.rend(); }
 private:
   value_type val;
 };
