@@ -38,6 +38,7 @@ public:
   CF operator-=(const CF& rhs);
   CF operator*=(const CF& rhs);
   CF operator/=(const CF& rhs);
+  CF operator-() const;
   static const ZZX MOD;
 private:
   ZZX num;
@@ -153,6 +154,12 @@ template <int p>
 CF<p> operator/(CF<p> lhs, const CF<p>& rhs)
 {
   return lhs /= rhs;
+}
+
+template <int p>
+CF<p> CF<p>::operator-() const
+{
+  return *this * CF(-1);
 }
 
 template <int p>
