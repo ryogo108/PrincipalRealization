@@ -22,7 +22,7 @@ int main()
        << "alpha1.proj(5) = " << alpha1.proj(5) << endl
        << "alpha1.proj(2) = " << alpha1.proj(2) << endl
        << endl
-       << "alpha2 = " << alpha2
+       << "alpha2 = " << alpha2 << endl
        << endl;
 
   H a = alpha1;
