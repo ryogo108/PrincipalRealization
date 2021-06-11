@@ -76,6 +76,7 @@ public:
 
   S& operator+=(const S&);
 
+  void clear() { val.clear(); }
 private:
   value_type val;
   Term& unify(Term&);
@@ -98,10 +99,10 @@ private:
   value_type val;
 };
 
-S& operator*(const Action&, S&);
+S operator*(const Action&, const S&);
 
 using Actions = std::vector<Action>;
-S& operator*(const Actions&, S&);
+S operator*(const Actions&, const S&);
 
 Actions E_plus(const H& a, int n);
 Actions E_minus(const H& a, int n);
