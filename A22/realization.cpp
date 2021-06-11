@@ -67,7 +67,8 @@ void Monomial::proj()
   }
 }
 
-std::pair<S::iterator, bool> S::insert(S::value_type::value_type x)
+std::pair<S::iterator, bool> S::insert(Term x)
 {
-  return val.insert(x);
+  auto ret = val.insert(x);
+  return ret;
 }
