@@ -19,6 +19,8 @@ public:
   H(const F& v1, const F& v2) : val({v1, v2}) {}
   value_type getVal() const { return val; }
 
+  H proj(int n) const;
+
 private:
  value_type val;
 };
