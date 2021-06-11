@@ -67,6 +67,16 @@ void Monomial::proj()
   }
 }
 
+F Monomial::getCoeff() const
+{
+  F ret = F(1);
+  for(Monomial::const_iterator iter = val.begin();
+      iter != val.end(); ++iter) {
+    ret *= (iter -> first).getProjVal(iter -> second);
+  }
+  return ret;
+}
+
 std::pair<S::iterator, bool> S::insert(Term x)
 {
   auto ret = val.insert(unify(x));
