@@ -36,12 +36,12 @@ private:
   value_type val;
 };
 
-bool operator< (const monomial&, const monomial&);
-std::ostream& operator<< (std::ostream&, const monomial&);
+bool operator< (const Monomial&, const Monomial&);
+std::ostream& operator<< (std::ostream&, const Monomial&);
 
 class S {
 public:
-  using value_type = std::map<monomial, F>;
+  using value_type = std::map<Monomial, F>;
   using iterator = value_type::iterator;
   using const_iterator = value_type::const_iterator;
   const_iterator begin() const { return val.begin(); }

@@ -15,14 +15,19 @@ int main()
                     (F(1) - F(-2) * w) / F(3)};
   cout << "A2 simple roots are followings:"
        << endl
-       << "alpha1 = " << alpha1
+       << "alpha1 = " << alpha1 << endl
+       << "alpha1.proj(1) = " << alpha1.proj(1) << endl
+       << "alpha1.proj(-5) = " << alpha1.proj(-5) << endl
+       << "alpha1.proj(-1) = " << alpha1.proj(-1) << endl
+       << "alpha1.proj(5) = " << alpha1.proj(5) << endl
+       << "alpha1.proj(2) = " << alpha1.proj(2) << endl
        << endl
        << "alpha2 = " << alpha2
        << endl;
 
   H a = alpha1;
   S v;
-  v.insert(make_pair(monomial({std::make_pair(a, -1)}), F(1)));
+  v.insert(make_pair(Monomial({std::make_pair(a, -1)}), F(1)));
   cout << "a = alpha1 = " << a << endl;
   cout << "v = " << v << endl;
   cout << "X(a, -3) * v = " << X(a, -3) * v << endl;

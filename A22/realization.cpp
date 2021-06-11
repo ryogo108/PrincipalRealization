@@ -9,10 +9,10 @@ ostream& operator<< (ostream& os, const H& a)
   return os << "(" << val[0] << ", " << val[1] << ")";
 }
 
-ostream& operator<< (ostream& os, const monomial& m)
+ostream& operator<< (ostream& os, const Monomial& m)
 {
   os << "[";
-  for(monomial::const_iterator iter = m.begin();
+  for(Monomial::const_iterator iter = m.begin();
       iter != m.end(); ++iter) {
     if(iter != m.begin()) os << ", ";
     os << iter -> first
@@ -33,13 +33,13 @@ ostream& operator<< (ostream& os, const S& v)
     os << "["
        << iter -> second      // coefficient
        << " * "
-       << iter -> first       // monomial
+       << iter -> first       // Monomial
        << "]";
   }
   return os << endl;
 }
 
-bool operator< (const monomial& lhs, const monomial& rhs)
+bool operator< (const Monomial& lhs, const Monomial& rhs)
 {
   return true;
 }
