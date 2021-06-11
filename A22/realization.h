@@ -27,9 +27,12 @@ private:
 };
 
 std::ostream& operator<< (std::ostream&, const H& a);
+bool operator==(const H&, const H&);
 
 using Factor = std::pair<H, int>;
 Factor proj(const Factor& f);
+F getCoeff(const Factor& f);
+Factor unifyCoeff(const Factor& f);
 
 class Monomial {
 public:
@@ -43,6 +46,7 @@ public:
   value_type::size_type size() const { return val.size(); }
 
   void push(const Factor&);
+  const_iterator erase(const_iterator&);
 
   F getCoeff() const;
   void unifyCoeff();
