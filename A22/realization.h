@@ -100,6 +100,12 @@ private:
 
 S& operator*(const Action&, S&);
 
+using Actions = std::vector<Action>;
+S& operator*(const Actions&, S&);
+
+Actions E_plus(const H& a, int n);
+Actions E_minus(const H& a, int n);
+
 class X {
 public:
   X() {}
