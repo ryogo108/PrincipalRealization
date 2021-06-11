@@ -150,6 +150,17 @@ S& S::operator+=(const S& v)
   return *this;
 }
 
+void S::omit()
+{
+  for(value_type::const_iterator iter = val.begin();
+      iter != val.end();) {
+    if(iter -> second == F(0))
+      iter = val.erase(iter);
+    else
+      ++iter;
+  }
+}
+
 S& operator*(const Action& a, S& v)
 {
   for(Action::const_reverse_iterator riter = a.rbegin();
