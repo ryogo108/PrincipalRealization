@@ -2,6 +2,7 @@
 #include "realization.h"
 
 using std::ostream;
+using std::make_pair;
 
 ostream& operator<< (ostream& os, const H& a)
 {
@@ -85,7 +86,6 @@ void Monomial::sort()
 
 void Monomial::proj()
 {
-  using std::make_pair;
   for(value_type::iterator iter = val.begin();
       iter != val.end(); ++iter) {
     *iter = make_pair((iter -> first).proj(iter -> second), iter -> second);
@@ -170,7 +170,19 @@ S& operator*(const Action& a, S& v)
   return v;
 }
 
-S append(const Factor& f, const S& v);
+Monomial append(const Factor& f, const Monomial& m);
+
+S append(const Factor& f, const S& v)
+{
+  S ret;
+  for(S::const_iterator iter = v.begin();
+      iter != v.end(); ++iter) {
+    const Monomial& m = iter -> first;
+    const F& coeff = (iter -> second);
+    ret.insert(make_pair(append(f, m), coeff));
+  }
+  return ret;
+}
 S derive(const Factor& f, const S& v);
 
 S operator*(const Factor& f, const S& v)
