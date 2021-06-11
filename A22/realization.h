@@ -31,7 +31,7 @@ public:
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
 
-  iterator insert(const value_type::value_type&);
+  std::pair<iterator, bool> insert(value_type::value_type);
 private:
   value_type val;
 };
