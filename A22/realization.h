@@ -20,6 +20,7 @@ public:
   value_type getVal() const { return val; }
 
   H proj(int n) const;
+  F getProjVal(int n) const;
 
 private:
  value_type val;
