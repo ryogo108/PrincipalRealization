@@ -170,10 +170,10 @@ S& operator*(const Action& a, S& v)
   return v;
 }
 
-S& append(const Factor& f, S& v);
-S& derive(const Factor& f, S& v);
+S append(const Factor& f, const S& v);
+S derive(const Factor& f, const S& v);
 
-S& operator*(const Factor& f, S& v)
+S operator*(const Factor& f, const S& v)
 {
   if(f.second < 0)
     return append(f, v);
