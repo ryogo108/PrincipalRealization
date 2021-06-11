@@ -78,6 +78,9 @@ S& operator*(const Factor&, S&);
 class Action {
 public:
   using value_type = std::vector<Factor>;
+  using const_iterator = value_type::const_iterator;
+  const_iterator begin() const { return val.begin(); }
+  const_iterator end() const { return val.end(); }
 private:
   value_type val;
 };
