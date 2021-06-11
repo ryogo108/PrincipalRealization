@@ -29,6 +29,7 @@ private:
 std::ostream& operator<< (std::ostream&, const H& a);
 
 using Factor = std::pair<H, int>;
+Factor proj(const Factor& f);
 
 class Monomial {
 public:
