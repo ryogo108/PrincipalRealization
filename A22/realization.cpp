@@ -58,6 +58,15 @@ H H::proj(int n) const
   return H(F(0), F(0));
 }
 
+F H::getProjVal(int n) const
+{
+  if((n - 1) % CoxeterNum == 0)
+    return val[0];
+  if((n + 1) % CoxeterNum == 0)
+    return val[1];
+  return F(0);
+}
+
 void Monomial::proj()
 {
   using std::make_pair;
