@@ -66,6 +66,8 @@ public:
 
   std::pair<iterator, bool> insert(Term);
 
+  S& operator+=(const S&);
+
 private:
   value_type val;
   Term& unify(Term&);
