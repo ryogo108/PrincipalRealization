@@ -34,13 +34,14 @@ public:
   using const_iterator = value_type::const_iterator;
 
   Monomial() {}
-  Monomial(const value_type& v) : val(v) { proj(); }
+  Monomial(const value_type& v) : val(v) { sort(); proj(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
 
   F getCoeff() const;
   void unifyCoeff();
 private:
+  void sort();
   void proj();
   value_type val;
 };
