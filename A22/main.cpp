@@ -15,7 +15,6 @@ int main()
   H a;
   S v;
   v.insert(make_pair(monomial({std::make_pair(a, -1)}), F(1)));
-  cout << "w / (w - (w^-1)) = " << w / (w - (w^-1)) << endl;
   cout << "A2 simple roots are followings:"
        << endl
        << "alpha1 = " << alpha1
