@@ -11,21 +11,32 @@ ostream& operator<< (ostream& os, const H& a)
 
 ostream& operator<< (ostream& os, const monomial& m)
 {
-  return os << "OUTPUT OF MONOMIAL";
+  os << "[";
+  for(monomial::const_iterator iter = m.begin();
+      iter != m.end(); ++iter) {
+    if(iter != m.begin()) os << ", ";
+    os << iter -> first
+       << "("
+       << iter ->second
+       << ")";
+  }
+  return os << "]";
 }
 
 ostream& operator<< (ostream& os, const S& v)
 {
-  os << "[";
+  using std::endl;
   for(S::const_iterator iter = v.begin();
       iter != v.end(); ++iter) {
+    os << endl;
+    if(iter != v.begin()) os << "+ ";
     os << "["
-       << iter -> first       // monomial
-       << ", "
        << iter -> second      // coefficient
+       << " * "
+       << iter -> first       // monomial
        << "]";
   }
-  return os << "]";
+  return os << endl;
 }
 
 bool operator< (const monomial& lhs, const monomial& rhs)
@@ -36,4 +47,9 @@ bool operator< (const monomial& lhs, const monomial& rhs)
 S operator* (const X& x, const S& v)
 {
   return v;
+}
+
+std::pair<S::iterator, bool> S::insert(S::value_type::value_type x)
+{
+  return val.insert(x);
 }
