@@ -169,3 +169,16 @@ S& operator*(const Action& a, S& v)
   }
   return v;
 }
+
+S& append(const Factor& f, S& v);
+S& derive(const Factor& f, S& v);
+
+S& operator*(const Factor& f, S& v)
+{
+  if(f.second < 0)
+    return append(f, v);
+  if(f.second > 0)
+    return derive(f, v);
+  std::cerr << "Factor (*, 0) is not defined action of this realization." << std::endl;
+  exit(1);
+}
