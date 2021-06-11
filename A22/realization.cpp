@@ -95,12 +95,32 @@ Factor proj(const Factor& f)
   return ret;
 }
 
+F getCoeff(const Factor& f)
+{
+  return f.first.getProjVal(f.second);
+}
+
+Factor unifyCoeff(const Factor& f)
+{
+  if((f.second - 1) % 6 == 0)
+    return Factor(H(F(1), F(0)), f.second);
+  if((f.second + 1) % 6 == 0)
+    return Factor(H(F(0), F(1)), f.second);
+  return Factor(H(F(0), F(0)), f.second);
+
+}
+
 void Monomial::proj()
 {
   for(value_type::iterator iter = val.begin();
       iter != val.end(); ++iter) {
     *iter = make_pair((iter -> first).proj(iter -> second), iter -> second);
   }
+}
+
+Monomial::const_iterator Monomial::erase(const_iterator& it)
+{
+  return val.erase(it);
 }
 
 F Monomial::getCoeff() const
