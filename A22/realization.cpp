@@ -197,22 +197,25 @@ void S::omit()
   }
 }
 
-S& operator*(const Action& a, S& v)
+S operator*(const Action& a, const S& v)
 {
+  S ret = v;
   for(Action::const_reverse_iterator riter = a.rbegin();
       riter != a.rend(); ++riter) {
-    v += (*riter) * v;
+    ret += (*riter) * ret;
   }
-  return v;
+  return ret;
 }
 
-S& operator*(const Actions& a, S& v)
+S operator*(const Actions& a, const S& v)
 {
+  if(a.empty()) return S();
+  S ret = v;
   for(Actions::const_iterator iter = a.begin();
       iter != a.end(); ++iter) {
-    v += (*iter) * v;
+    ret += (*iter) * ret;
   }
-  return v;
+  return ret;
 }
 
 void Monomial::push(const Factor& f)
