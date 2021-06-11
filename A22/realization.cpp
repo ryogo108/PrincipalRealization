@@ -72,3 +72,10 @@ std::pair<S::iterator, bool> S::insert(Term x)
   auto ret = val.insert(unify(x));
   return ret;
 }
+
+S::Term& S::unify(Term& x)
+{
+  x.second *= x.first.getCoeff();
+  x.first.unifyCoeff();
+  return x;
+}
