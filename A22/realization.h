@@ -30,8 +30,13 @@ std::ostream& operator<< (std::ostream&, const H& a);
 class Monomial {
 public:
   using value_type = std::vector<std::pair<H, int> >;
+  using const_iterator = value_type::const_iterator;
+
   Monomial() {}
   Monomial(const value_type& v) : val(v) {}
+
+  const_iterator begin() const { return val.begin(); }
+  const_iterator end() const { return val.end(); }
 private:
   value_type val;
 };
