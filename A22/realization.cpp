@@ -170,7 +170,11 @@ S& operator*(const Action& a, S& v)
   return v;
 }
 
-Monomial append(const Factor& f, const Monomial& m);
+Monomial append(const Factor& f, Monomial m)
+{
+  m.push(f);
+  return m;
+}
 
 S append(const Factor& f, const S& v)
 {
