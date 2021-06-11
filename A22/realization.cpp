@@ -200,7 +200,20 @@ S append(const Factor& f, const S& v)
   return ret;
 }
 
-S derive(const Factor& f, const S::Term& t);
+S derive(Factor f, const S::Term& t)
+{
+  S ret;
+  const F coeff = getCoeff(f);
+  f = unifyCoeff(f);
+  Factor target(f.first, -f.second);
+  Monomial m = t.first;
+  const unsigned int mul = count(m.begin(), m.end(), target);
+  if(mul == 0) return ret;
+  Monomial::const_iterator it = find(m.begin(), m.end(), target);
+  m.erase(it);
+  ret.insert(make_pair(m, coeff * t.second * F(mul * 3 * f.second)));
+  return ret;
+}
 
 S derive(const Factor& f, const S& v)
 {
