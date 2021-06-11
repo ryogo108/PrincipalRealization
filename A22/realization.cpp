@@ -58,6 +58,15 @@ H H::proj(int n) const
   return H(F(0), F(0));
 }
 
+void Monomial::proj()
+{
+  using std::make_pair;
+  for(value_type::iterator iter = val.begin();
+      iter != val.end(); ++iter) {
+    *iter = make_pair((iter -> first).proj(iter -> second), iter -> second);
+  }
+}
+
 std::pair<S::iterator, bool> S::insert(S::value_type::value_type x)
 {
   return val.insert(x);
