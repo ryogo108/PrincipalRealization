@@ -16,23 +16,17 @@ int main()
   cout << "A2 simple roots are followings:"
        << endl
        << "alpha1 = " << alpha1 << endl
-       << "alpha1.proj(1) = " << alpha1.proj(1) << endl
-       << "alpha1.proj(-5) = " << alpha1.proj(-5) << endl
-       << "alpha1.proj(-1) = " << alpha1.proj(-1) << endl
-       << "alpha1.proj(5) = " << alpha1.proj(5) << endl
-       << "alpha1.proj(2) = " << alpha1.proj(2) << endl
        << endl
        << "alpha2 = " << alpha2 << endl
        << endl;
 
-  H a = alpha1;
+  H a = H(F(0), F(1));
   S v;
-  v.insert(std::make_pair(Monomial({Factor(a, -1),
-                                    Factor(a, -5),
-                                    Factor(a, -1),
-                                    Factor(a, -7)}), F(1)));
-  cout << "a = alpha1 = " << a << endl;
+  v.insert(std::make_pair(Monomial({Factor(a, -1)}), F(1)));
+  cout << "a = " << a << endl;
   cout << "v = " << v << endl;
+  cout << "Factor(a, -1) * v = " << Factor(a, -1) * v << endl
+       << "Factor(a, 1) * v = " << Factor(a, 1) * v << endl;
   cout << "X(a, -3) * v = " << X(a, -3) * v << endl;
   return 0;
 }
