@@ -133,6 +133,23 @@ S::Term& S::unify(Term& x)
   return x;
 }
 
+S& S::operator+=(const S& v)
+{
+  for(S::const_iterator iter = v.begin();
+      iter != v.end(); ++iter) {
+    value_type::iterator it = val.find(iter -> first);
+    if(it != val.end()) {
+      it -> second += iter -> second;
+    }
+    else
+      val.insert(*iter);
+  }
+
+  omit();
+
+  return *this;
+}
+
 S& operator*(const Action& a, S& v)
 {
   for(Action::const_reverse_iterator riter = a.rbegin();
