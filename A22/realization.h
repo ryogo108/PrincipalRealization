@@ -127,6 +127,7 @@ public:
   bool empty() const { return val.empty(); }
 
   Actions& operator+=(const Actions&);
+  Actions& operator*=(const Actions&);
 private:
   std::pair<iterator, bool> insert(Term);
   Term& unify(Term&);
@@ -135,7 +136,7 @@ private:
 };
 
 Actions operator*(const F&, const Actions&);
-Actions operator*(const Actions&, const Actions&);
+Actions operator*(Actions, const Actions&);
 
 S operator*(const Actions&, const S&);
 
