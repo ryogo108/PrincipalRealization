@@ -363,6 +363,16 @@ Operators& Operators::operator+=(const Operators& rhs)
   return *this;
 }
 
+Operators operator*(const F& lhs, const Operators& rhs)
+{
+  Operators ret;
+  for(Operators::size_type i = Operators::MIN_DEG;
+      i < Operators::MAX_DEG; ++i) {
+    ret[i] = lhs * rhs[i];
+  }
+  return ret;
+}
+
 Operators operator*(const Operators& lhs, const Operators& rhs)
 {
   using size_type = Operators::size_type;
