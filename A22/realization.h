@@ -99,7 +99,7 @@ private:
 
 S operator*(const Action&, const S&);
 
-using Actions = std::map<Aciton, F>;
+using Actions = std::map<Action, F>;
 S operator*(const Actions&, const S&);
 
 Actions E_plus(const H& a, int n);

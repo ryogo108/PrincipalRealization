@@ -213,7 +213,7 @@ S operator*(const Actions& a, const S& v)
   S ret = v;
   for(Actions::const_iterator iter = a.begin();
       iter != a.end(); ++iter) {
-    ret += (*iter) * ret;
+    ret += (iter -> second) * ((iter -> first) * ret);
   }
   return ret;
 }
