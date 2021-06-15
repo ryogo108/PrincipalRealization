@@ -123,6 +123,8 @@ public:
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   bool empty() const { return val.empty(); }
+
+  Actions& operator+=(const Actions&);
 private:
   std::pair<iterator, bool> insert(Term);
   Term& unify(Term&);
