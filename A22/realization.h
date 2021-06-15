@@ -128,6 +128,7 @@ public:
 private:
   std::pair<iterator, bool> insert(Term);
   Term& unify(Term&);
+  void omit();
   value_type val;
 };
 
