@@ -370,10 +370,13 @@ Actions& Actions::operator+=(const Actions& rhs)
 
 Action operator*(Action lhs, const Action& rhs)
 {
+  std::cout << "rhs = " << rhs << std::endl;
+  std::cout << "before operator*, lhs = " << lhs << std::endl;
   for(Action::const_iterator iter = rhs.begin();
       iter != rhs.end(); ++iter) {
     lhs.push_back(*iter);
   }
+  std::cout << "after operator*, lhs = " << lhs << std::endl;
   return lhs;
 }
 
