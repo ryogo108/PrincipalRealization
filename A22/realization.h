@@ -107,7 +107,14 @@ public:
 
 S operator*(const Action&, const S&);
 
-using Actions = std::map<Action, F>;
+class Actions {
+public:
+  using value_type = std::map<Action, F>;
+private:
+  value_type val;
+};
+
+
 S operator*(const Actions&, const S&);
 
 const std::size_t DEG0 = 2;
