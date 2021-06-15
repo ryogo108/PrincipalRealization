@@ -15,6 +15,20 @@ ostream& operator<< (ostream& os, const Factor& f)
   return os << f.first << "(" << f.second << ")";
 }
 
+ostream& operator<< (ostream& os, const Core& c)
+{
+  os << "[";
+  for(Core::const_iterator iter = c.begin();
+      iter != c.end(); ++iter) {
+    if(iter != c.begin()) os << ", ";
+    os << iter -> first
+       << "("
+       << iter ->second
+       << ")";
+  }
+  return os << "]";
+}
+
 ostream& operator<< (ostream& os, const Monomial& m)
 {
   os << "[";
@@ -461,6 +475,8 @@ Actions E_minus(const H& a, int n)
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
     A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i));
   }
+  std::cout << "A = " << std::endl;
+  std::cout << A << std::endl;
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
     val += (F(1) / factorial(i)) * pow(A, i);
   }
