@@ -119,6 +119,7 @@ public:
   Actions() {}
   Actions(const Action& a) { insert(std::make_pair(a, F(1))); }
   Actions(const Factor& f) : Actions(Action(f)) {}
+  Actions(const F& a) { insert(std::make_pair(Action(), a)); }
 
   iterator begin() { return val.begin(); }
   iterator end() { return val.end(); }
