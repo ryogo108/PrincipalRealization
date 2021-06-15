@@ -120,6 +120,8 @@ public:
   Actions(const Action& a) { insert(std::make_pair(a, F(1))); }
   Actions(const Factor& f) : Actions(Action(f)) {}
 
+  iterator begin() { return val.begin(); }
+  iterator end() { return val.end(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   bool empty() const { return val.empty(); }
