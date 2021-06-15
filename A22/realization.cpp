@@ -18,7 +18,7 @@ ostream& operator<< (ostream& os, const Factor& f)
 ostream& operator<< (ostream& os, const Monomial& m)
 {
   os << "[";
-  for(Monomial::const_iterator iter = m.begin();
+  for(Core::const_iterator iter = m.begin();
       iter != m.end(); ++iter) {
     if(iter != m.begin()) os << ", ";
     os << iter -> first
@@ -53,8 +53,8 @@ bool operator== (const H& lhs, const H& rhs)
 bool operator< (const Monomial& lhs, const Monomial& rhs)
 {
   if(lhs.size() != rhs.size()) return lhs.size() < rhs.size();
-  Monomial::const_iterator it1 = lhs.begin();
-  Monomial::const_iterator it2 = rhs.begin();
+  Core::const_iterator it1 = lhs.begin();
+  Core::const_iterator it2 = rhs.begin();
   while(it1 != lhs.end()) {
     if(it1 -> second != it2 -> second)
       return it1 -> second < it2 -> second;
@@ -87,7 +87,7 @@ F H::getProjVal(int n) const
   return F(0);
 }
 
-void Monomial::sort()
+void Core::sort()
 {
   std::sort(val.begin(), val.end(), [](const Factor& lhs, const Factor& rhs){
     return lhs.second < rhs.second;
@@ -115,7 +115,7 @@ Factor unifyCoeff(const Factor& f)
 
 }
 
-void Monomial::proj()
+void Core::proj()
 {
   for(value_type::iterator iter = val.begin();
       iter != val.end(); ++iter) {
@@ -123,22 +123,22 @@ void Monomial::proj()
   }
 }
 
-Monomial::const_iterator Monomial::erase(const_iterator& it)
+Core::const_iterator Core::erase(const_iterator& it)
 {
   return val.erase(it);
 }
 
-F Monomial::getCoeff() const
+F Core::getCoeff() const
 {
   F ret = F(1);
-  for(Monomial::const_iterator iter = val.begin();
+  for(Core::const_iterator iter = val.begin();
       iter != val.end(); ++iter) {
     ret *= (iter -> first).getProjVal(iter -> second);
   }
   return ret;
 }
 
-void Monomial::unifyCoeff()
+void Core::unifyCoeff()
 {
   for(value_type::iterator iter = val.begin();
       iter != val.end(); ++iter) {
@@ -228,7 +228,7 @@ S operator*(const Actions& a, const S& v)
   return ret;
 }
 
-void Monomial::push(const Factor& f)
+void Core::push(const Factor& f)
 {
   val.push_back(::proj(f));
   sort();
@@ -270,7 +270,7 @@ S derive(Factor f, const S::Term& t)
   Monomial m = t.first;
   const unsigned int mul = count(m.begin(), m.end(), target);
   if(mul == 0) return ret;
-  Monomial::const_iterator it = find(m.begin(), m.end(), target);
+  Core::const_iterator it = find(m.begin(), m.end(), target);
   m.erase(it);
   ret.insert(make_pair(m, coeff * t.second * F(mul * 3 * f.second) / F(CoxeterNum)));
   return ret;
