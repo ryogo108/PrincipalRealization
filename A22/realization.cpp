@@ -368,6 +368,15 @@ Actions& Actions::operator+=(const Actions& rhs)
   return *this;
 }
 
+Action operator*(Action lhs, const Action& rhs)
+{
+  for(Action::const_iterator iter = rhs.begin();
+      iter != rhs.end(); ++iter) {
+    lhs.push_back(*iter);
+  }
+  return lhs;
+}
+
 Actions& Actions::operator*=(const Actions& rhs)
 {
   Actions::value_type ret;

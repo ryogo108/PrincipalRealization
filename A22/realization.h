@@ -107,7 +107,7 @@ public:
   Action(const Factor& f) : Core(f) {}
 };
 
-Action operator*(const Action&, const Action&);
+Action operator*(Action, const Action&);
 S operator*(const Action&, const S&);
 
 class Actions {
