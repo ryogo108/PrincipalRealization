@@ -363,6 +363,27 @@ Operators& Operators::operator+=(const Operators& rhs)
   return *this;
 }
 
+Operators operator*(const Operators& lhs, const Operators& rhs)
+{
+  using size_type = Operators::size_type;
+  const auto MIN_DEG = Operators::MIN_DEG;
+  const auto MAX_DEG = Operators::MAX_DEG;
+  const auto DEG0 = Operators::DEG0;
+
+  Operators ret;
+  for(size_type i = MIN_DEG;
+      i < MAX_DEG; ++i) {
+    for(size_type j = MIN_DEG;
+        j < MAX_DEG; ++i) {
+      size_type target = i + j - DEG0;
+      if(target > MAX_DEG || target < MIN_DEG)
+        continue;
+      ret[target] += lhs[i] * rhs[i];
+    }
+  }
+  return ret;
+}
+
 Operators pow(const Operators& A, int n)
 {
   if(n < 0) {
