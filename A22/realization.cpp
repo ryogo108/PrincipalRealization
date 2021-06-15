@@ -370,13 +370,10 @@ Actions& Actions::operator+=(const Actions& rhs)
 
 Action operator*(Action lhs, const Action& rhs)
 {
-  std::cout << "rhs = " << rhs << std::endl;
-  std::cout << "before operator*, lhs = " << lhs << std::endl;
   for(Action::const_iterator iter = rhs.begin();
       iter != rhs.end(); ++iter) {
     lhs.push_back(*iter);
   }
-  std::cout << "after operator*, lhs = " << lhs << std::endl;
   return lhs;
 }
 
@@ -389,8 +386,8 @@ Actions& Actions::operator*=(const Actions& rhs)
         it2 != rhs.end(); ++it2) {
       F coeff = (it1 -> second) * (it2 -> second);
       Action a = (it1 -> first) * (it2 -> first);
-      value_type::iterator it = val.find(a);
-      if(it != val.end()) {
+      value_type::iterator it = ret.find(a);
+      if(it != ret.end()) {
         it -> second += coeff;
       }
       else
@@ -503,12 +500,12 @@ Actions E_minus(const H& a, int n)
   using std::size_t;
   Operators val;
   Operators A;
-  std::cout << std::endl;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
     A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i - Operators::DEG0));
   }
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
     val += (F(1) / factorial(i)) * pow(A, i);
   }
+  std::cout << "val = " << val << std::endl;
   return val[n + Operators::DEG0];
 }
