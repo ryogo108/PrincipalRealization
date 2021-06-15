@@ -110,7 +110,17 @@ S operator*(const Action&, const S&);
 class Actions {
 public:
   using value_type = std::map<Action, F>;
+  using const_iterator = value_type::const_iterator;
+
+  Actions() {}
+  Actions(const Action& a) { create(a); }
+  Actions(const Factor& f) : Actions(Action(f)) {}
+
+  const_iterator begin() const { return val.begin(); }
+  const_iterator end() const { return val.end(); }
+  bool empty() const { return val.empty(); }
 private:
+  void create(const Action& a);
   value_type val;
 };
 
