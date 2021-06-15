@@ -43,14 +43,14 @@ public:
 
   Core() {}
   Core(const value_type& v) : val(v) { sort(); proj(); }
-  Core(const Factor& f) { push(f); }
+  Core(const Factor& f) { push_back(f); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   const_reverse_iterator rbegin() const { return val.rbegin(); }
   const_reverse_iterator rend() const { return val.rend(); }
   value_type::size_type size() const { return val.size(); }
 
-  void push(const Factor&);
+  void push_back(const Factor&);
   const_iterator erase(const_iterator&);
 
   F getCoeff() const;
@@ -107,6 +107,7 @@ public:
   Action(const Factor& f) : Core(f) {}
 };
 
+Action operator*(const Action&, const Action&);
 S operator*(const Action&, const S&);
 
 class Actions {
