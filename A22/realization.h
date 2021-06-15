@@ -135,6 +135,7 @@ private:
 };
 
 Actions operator*(const F&, const Actions&);
+Actions operator*(const Actions&, const Actions&);
 
 S operator*(const Actions&, const S&);
 
