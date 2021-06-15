@@ -316,6 +316,15 @@ F factorial(int n)
   return F(n) * factorial(n - 1);
 }
 
+Operators Operators::operator+=(const Operators& rhs)
+{
+  for(Operators::size_type i = MIN_DEG;
+      i < MAX_DEG; ++i) {
+    val[i] += rhs[i];
+  }
+  return *this;
+}
+
 Operators pow(const Operators& A, int n)
 {
   if(n < 0) {
