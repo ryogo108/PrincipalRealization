@@ -499,12 +499,14 @@ Operators pow(const Operators& A, int n)
 const Operators E_minus(const H& a)
 {
   using std::size_t;
+  const auto MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  const auto MIN_DEG = Operators::MIN_DEG - Operators::DEG0;
   Operators ret;
   Operators A;
-  for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
-    A[i] = (F(CoxeterNum) / F(-i + Operators::DEG0)) * Actions(Factor(a, -i + Operators::DEG0));
+  for(size_t i = -1; i >= MAX_DEG; --i) {
+    A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i));
   }
-  for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
+  for(int i = 0; i < MAX_DEG; ++i) {
     ret += (F(1) / factorial(i)) * pow(A, i);
   }
   return ret;

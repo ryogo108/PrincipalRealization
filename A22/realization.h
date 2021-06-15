@@ -157,8 +157,8 @@ public:
   Operators() { create(); }
   Operators(const F& f) { create(f); }
 
-  value_type::value_type& operator[](int n) { return val[n]; }
-  const value_type::value_type& operator[](int n) const { return val[n]; }
+  value_type::value_type& operator[](int n) { return val[n + DEG0]; }
+  const value_type::value_type& operator[](int n) const { return val[n + DEG0]; }
   Operators& operator +=(const Operators&);
   friend std::ostream& operator<< (std::ostream&, const Operators&);
 private:
