@@ -130,10 +130,19 @@ Actions operator*(const F&, const Actions&);
 
 S operator*(const Actions&, const S&);
 
-const std::size_t DEG0 = 2;
-const std::size_t MAX_DEG = 2 * DEG0 + 1;
-const std::size_t MIN_DEG = 0;
-using Operators = std::array<Actions, MAX_DEG>;
+class Operators {
+public:
+  using size_type = std::size_t;
+  static const size_type DEG0 = 2;
+  static const size_type MAX_DEG = 2 * DEG0 + 1;
+  static const size_type MIN_DEG = 0;
+  using value_type = std::array<Actions, MAX_DEG>;
+
+  value_type::value_type& operator[](int n) { return val[n]; }
+  value_type operator +=(const Operators&);
+private:
+  value_type val;
+};
 
 Operators operator*(const F&, const Operators&);
 Operators operator*(const Operators&, const Operators&);
