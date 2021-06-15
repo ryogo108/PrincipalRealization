@@ -39,11 +39,14 @@ class Core {
 public:
   using value_type = std::vector<Factor>;
   using const_iterator = value_type::const_iterator;
+  using const_reverse_iterator = value_type::const_reverse_iterator;
 
   Core() {}
   Core(const value_type& v) : val(v) { sort(); proj(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
+  const_reverse_iterator rbegin() const { return val.rbegin(); }
+  const_reverse_iterator rend() const { return val.rend(); }
   value_type::size_type size() const { return val.size(); }
 
   void push(const Factor&);
@@ -96,16 +99,10 @@ std::ostream& operator<< (std::ostream&, const S& v);
 S operator*(const F&, const S&);
 S operator*(const Factor&, const S&);
 
-class Action {
+class Action: public Core{
 public:
-  using value_type = std::vector<Factor>;
-  using const_reverse_iterator = value_type::const_reverse_iterator;
   Action() {}
-  Action(const value_type& v) : val(v) {}
-  const_reverse_iterator rbegin() const { return val.rbegin(); }
-  const_reverse_iterator rend() const { return val.rend(); }
-private:
-  value_type val;
+  Action(const value_type& v) : Core(v) {}
 };
 
 S operator*(const Action&, const S&);
