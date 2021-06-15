@@ -501,11 +501,10 @@ Actions E_minus(const H& a, int n)
   Operators val;
   Operators A;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
-    A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i - Operators::DEG0));
+    A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, -i + Operators::DEG0));
   }
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
     val += (F(1) / factorial(i)) * pow(A, i);
   }
-  std::cout << "val = " << val << std::endl;
   return val[n + Operators::DEG0];
 }
