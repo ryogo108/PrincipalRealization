@@ -354,6 +354,11 @@ Actions& Actions::operator+=(const Actions& rhs)
   return *this;
 }
 
+Actions operator*(Actions lhs, const Actions& rhs)
+{
+  return lhs *= rhs;
+}
+
 Operators& Operators::operator+=(const Operators& rhs)
 {
   for(Operators::size_type i = MIN_DEG;
