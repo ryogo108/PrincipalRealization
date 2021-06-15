@@ -242,7 +242,7 @@ S operator*(const Actions& a, const S& v)
   return ret;
 }
 
-void Core::push(const Factor& f)
+void Core::push_back(const Factor& f)
 {
   val.push_back(::proj(f));
   sort();
@@ -250,7 +250,7 @@ void Core::push(const Factor& f)
 
 Monomial append(const Factor& f, Monomial m)
 {
-  m.push(f);
+  m.push_back(f);
   return m;
 }
 
@@ -370,6 +370,25 @@ Actions& Actions::operator+=(const Actions& rhs)
 
 Actions& Actions::operator*=(const Actions& rhs)
 {
+  Actions::value_type ret;
+  for(Actions::const_iterator it1 = val.begin();
+      it1 != val.end(); ++it1) {
+    for(Actions::const_iterator it2 = rhs.begin();
+        it2 != rhs.end(); ++it2) {
+      F coeff = (it1 -> second) * (it2 -> second);
+      Action a = (it1 -> first) * (it2 -> first);
+      value_type::iterator it = val.find(a);
+      if(it != val.end()) {
+        it -> second += coeff;
+      }
+      else
+        ret.insert(Term(a, coeff));
+    }
+  }
+
+  val = ret;
+  omit();
+
   return *this;
 }
 
@@ -417,11 +436,11 @@ Operators operator*(const Operators& lhs, const Operators& rhs)
   const auto DEG0 = Operators::DEG0;
 
   Operators ret;
-  for(size_type i = MIN_DEG;
+  for(int i = MIN_DEG;
       i < MAX_DEG; ++i) {
-    for(size_type j = MIN_DEG;
+    for(int j = MIN_DEG;
         j < MAX_DEG; ++j) {
-      size_type target = i + j - DEG0;
+      int target = i + j - DEG0;
       if(target >= MAX_DEG || target < MIN_DEG)
         continue;
       ret[target] += lhs[i] * rhs[j];
@@ -472,11 +491,10 @@ Actions E_minus(const H& a, int n)
   using std::size_t;
   Operators val;
   Operators A;
+  std::cout << std::endl;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
-    A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i));
+    A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i - Operators::DEG0));
   }
-  std::cout << "A = " << std::endl;
-  std::cout << A << std::endl;
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
     val += (F(1) / factorial(i)) * pow(A, i);
   }
