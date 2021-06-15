@@ -59,6 +59,11 @@ ostream& operator<< (ostream& os, const S& v)
   return os << endl;
 }
 
+H H::operator-() const
+{
+  return H(-val[0], -val[1]);
+}
+
 bool operator== (const H& lhs, const H& rhs)
 {
   return lhs.getVal() == rhs.getVal();

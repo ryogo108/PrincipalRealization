@@ -22,6 +22,8 @@ public:
   H proj(int n) const;
   F getProjVal(int n) const;
 
+  H operator-() const;
+
 private:
  value_type val;
 };
