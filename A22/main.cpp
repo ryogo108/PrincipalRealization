@@ -27,8 +27,10 @@ int main()
   cout << "v = " << v << endl;
   cout << "Factor(a, 1) * (Factor(a, -1) * v)= " << Factor(a, 1) * (Factor(a, -1) * v) << endl;
   cout << "Factor(a, -1) * (Factor(a, 1) * v)= " << Factor(a, -1) * (Factor(a, 1) * v) << endl;
-  cout << "E_minus(a, 5) = " << E_minus(a, 5) << endl;
-  cout << "E_minus(a, 5) * v = " << E_minus(a, 5) * v << endl;
-  cout << "X(a, -3) * v = " << X(a, -3) * v << endl;
+  cout << "E_minus(a) = " << E_minus(a) << endl;
+  cout << "E_minus(a)[5] * v = " << E_minus(a)[5] * v << endl;
+  cout << "E_plus(a) = " << E_plus(a) << endl;
+  cout << "E_plus(a)[-1] * v = " << E_plus(a)[-1] * v << endl;
+  //cout << "X(a)[-3] * v = " << X(a)[-3] * v << endl;
   return 0;
 }
