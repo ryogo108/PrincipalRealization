@@ -62,7 +62,7 @@ private:
 class Monomial: public Core {
 public:
   Monomial() {}
-  Monomial(const value_type& v) : val(v) { sort(); proj(); }
+  Monomial(const value_type& v) : Core(v) {};
 };
 
 bool operator< (const Monomial&, const Monomial&);
