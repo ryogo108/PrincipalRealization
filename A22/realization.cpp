@@ -316,6 +316,27 @@ F factorial(int n)
   return F(n) * factorial(n - 1);
 }
 
+void Actions::omit()
+{
+  for(value_type::const_iterator iter = val.begin();
+      iter != val.end();) {
+    if(iter -> second == F(0))
+      iter = val.erase(iter);
+    else
+      ++iter;
+  }
+}
+
+Actions operator*(const F& a, const Actions& v)
+{
+  Actions ret = v;
+  for(Actions::iterator iter = ret.begin();
+      iter != ret.end(); ++iter) {
+    (iter -> second) *= a;
+  }
+  return ret;
+}
+
 Actions& Actions::operator+=(const Actions& rhs)
 {
   for(Actions::const_iterator iter = rhs.begin();
