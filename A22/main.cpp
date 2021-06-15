@@ -31,6 +31,8 @@ int main()
   cout << "E_minus(a)[5] * v = " << E_minus(a)[5] * v << endl;
   cout << "E_plus(a) = " << E_plus(a) << endl;
   cout << "E_plus(a)[-1] * v = " << E_plus(a)[-1] * v << endl;
-  //cout << "X(a)[-3] * v = " << X(a)[-3] * v << endl;
+  cout << "X(a)[3] * v = " << X(a)[3] * v << endl;
+  cout << "X(a)[4] * v = " << X(a)[4] * v << endl;
+  cout << "X(a)[5] * v = " << X(a)[5] * v << endl;
   return 0;
 }
