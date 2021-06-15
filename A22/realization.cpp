@@ -364,6 +364,13 @@ Actions operator*(Actions lhs, const Actions& rhs)
   return lhs *= rhs;
 }
 
+void Operators::create()
+{
+  for(size_type i = MIN_DEG; i < MAX_DEG; ++i) {
+    val[i] = Actions();
+  }
+}
+
 Operators& Operators::operator+=(const Operators& rhs)
 {
   for(Operators::size_type i = MIN_DEG;
@@ -394,11 +401,11 @@ Operators operator*(const Operators& lhs, const Operators& rhs)
   for(size_type i = MIN_DEG;
       i < MAX_DEG; ++i) {
     for(size_type j = MIN_DEG;
-        j < MAX_DEG; ++i) {
+        j < MAX_DEG; ++j) {
       size_type target = i + j - DEG0;
-      if(target > MAX_DEG || target < MIN_DEG)
+      if(target >= MAX_DEG || target < MIN_DEG)
         continue;
-      ret[target] += lhs[i] * rhs[i];
+      ret[target] += lhs[i] * rhs[j];
     }
   }
   return ret;
@@ -423,10 +430,10 @@ Actions E_minus(const H& a, int n)
   Operators val;
   Operators A;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
-    A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i)) ;
+    A[-i + Operators::DEG0] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i));
   }
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
-    val += (F(1) / factorial(i)) *pow(A, i);
+    val += (F(1) / factorial(i)) * pow(A, i);
   }
   return val[n + Operators::DEG0];
 }
