@@ -296,6 +296,13 @@ S operator*(const Factor& f, const S& v)
   exit(1);
 }
 
+F factorial(int n)
+{
+  if(n < 0) return F(0);
+  if(n == 0) return F(1);
+  return F(n) * factorial(n - 1);
+}
+
 Actions E_minus(const H& a, int n)
 {
   using std::size_t;
