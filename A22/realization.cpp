@@ -296,6 +296,12 @@ S operator*(const Factor& f, const S& v)
   exit(1);
 }
 
+std::pair<Actions::iterator, bool> Actions::insert(Term x)
+{
+  auto ret = val.insert(unify(x));
+  return ret;
+}
+
 F factorial(int n)
 {
   if(n < 0) return F(0);
@@ -321,11 +327,11 @@ Actions E_minus(const H& a, int n)
   using std::size_t;
   Operators val;
   Operators A;
-  for(size_t i = DEG0 + 1; i < MAX_DEG; ++i) {
+  for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
     A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i)) ;
   }
-  for(int i = 0; i < (MAX_DEG - DEG0); ++i) {
+  for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
     val += (F(1) / factorial(i)) *pow(A, i);
   }
-  return val[n + DEG0];
+  return val[n + Operators::DEG0];
 }
