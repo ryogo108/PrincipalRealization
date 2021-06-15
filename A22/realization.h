@@ -126,6 +126,7 @@ private:
   value_type val;
 };
 
+Actions operator*(const F&, const Actions);
 
 S operator*(const Actions&, const S&);
 
