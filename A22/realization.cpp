@@ -416,6 +416,29 @@ Operators operator*(const Operators& lhs, const Operators& rhs)
   return ret;
 }
 
+ostream& operator<< (ostream& os, const Actions& a)
+{
+  os << "[";
+  for(Actions::const_iterator iter = a.begin();
+      iter != a.end(); ++iter) {
+    if(iter != a.begin())
+      os << ", ";
+    os << (iter -> second) << " * " << (iter -> first);
+  }
+  return os << "]";
+}
+
+ostream& operator<< (ostream& os, const Operators& op)
+{
+  for(int i = Operators::MIN_DEG; i < Operators::MAX_DEG; ++i) {
+    if(i != Operators::MIN_DEG)
+      os << std::endl;
+    os << "z^" << i - int(Operators::DEG0) << " : " << std::endl
+       << op.val[i];
+  }
+  return os;
+}
+
 Operators pow(const Operators& A, int n)
 {
   if(n == 0) return Operators(F(1));
@@ -436,7 +459,7 @@ Actions E_minus(const H& a, int n)
   Operators val;
   Operators A;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
-    A[-i + Operators::DEG0] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i));
+    A[i] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i));
   }
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
     val += (F(1) / factorial(i)) * pow(A, i);

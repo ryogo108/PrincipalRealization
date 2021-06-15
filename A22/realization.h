@@ -136,6 +136,8 @@ private:
   value_type val;
 };
 
+std::ostream& operator<<(std::ostream&, const Actions&);
+
 Actions operator*(const F&, const Actions&);
 Actions operator*(Actions, const Actions&);
 
@@ -155,6 +157,7 @@ public:
   value_type::value_type& operator[](int n) { return val[n]; }
   const value_type::value_type& operator[](int n) const { return val[n]; }
   Operators& operator +=(const Operators&);
+  friend std::ostream& operator<< (std::ostream&, const Operators&);
 private:
   void create();
   void create(const F&);
