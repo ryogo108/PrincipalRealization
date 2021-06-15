@@ -302,6 +302,13 @@ std::pair<Actions::iterator, bool> Actions::insert(Term x)
   return ret;
 }
 
+Actions::Term& Actions::unify(Term& x)
+{
+  x.second *= x.first.getCoeff();
+  x.first.unifyCoeff();
+  return x;
+}
+
 F factorial(int n)
 {
   if(n < 0) return F(0);
