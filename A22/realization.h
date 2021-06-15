@@ -142,7 +142,8 @@ public:
   using value_type = std::array<Actions, MAX_DEG>;
 
   value_type::value_type& operator[](int n) { return val[n]; }
-  value_type operator +=(const Operators&);
+  const value_type::value_type& operator[](int n) const { return val[n]; }
+  Operators& operator +=(const Operators&);
 private:
   value_type val;
 };
