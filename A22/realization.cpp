@@ -303,6 +303,19 @@ F factorial(int n)
   return F(n) * factorial(n - 1);
 }
 
+Operators pow(const Operators& A, int n)
+{
+  if(n < 0) {
+    std::cerr << "pow(Action A, int n) は n < 0 で未定義" << std::endl;
+    exit(1);
+  }
+  if(n % 2 == 0) {
+    Operators tmp = pow(A, n / 2);
+    return tmp * tmp;
+  }
+  return A * pow(A, n - 1);
+}
+
 Actions E_minus(const H& a, int n)
 {
   using std::size_t;
