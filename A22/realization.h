@@ -69,6 +69,8 @@ public:
 
   S() {}
 
+  iterator begin() { return val.begin(); }
+  iterator end() { return val.end(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
 

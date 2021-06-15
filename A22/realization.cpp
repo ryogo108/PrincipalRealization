@@ -207,6 +207,16 @@ S operator*(const Action& a, const S& v)
   return ret;
 }
 
+S operator*(const F& a, const S& v)
+{
+  S ret = v;
+  for(S::iterator iter = ret.begin();
+      iter != ret.end(); ++iter) {
+    (iter -> second) *= a;
+  }
+  return ret;
+}
+
 S operator*(const Actions& a, const S& v)
 {
   if(a.empty()) return S();
