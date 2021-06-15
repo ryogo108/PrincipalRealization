@@ -112,17 +112,20 @@ S operator*(const Action&, const S&);
 class Actions {
 public:
   using value_type = std::map<Action, F>;
+  using iterator = value_type::iterator;
   using const_iterator = value_type::const_iterator;
+  using Term = std::pair<Action, F>;
 
   Actions() {}
-  Actions(const Action& a) { create(a); }
+  Actions(const Action& a) { insert(std::make_pair(a, F(1))); }
   Actions(const Factor& f) : Actions(Action(f)) {}
 
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   bool empty() const { return val.empty(); }
 private:
-  void create(const Action& a);
+  std::pair<iterator, bool> insert(Term);
+  Term& unify(Term&);
   value_type val;
 };
 
