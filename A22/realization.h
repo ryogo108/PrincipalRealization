@@ -35,13 +35,13 @@ Factor proj(const Factor& f);
 F getCoeff(const Factor& f);
 Factor unifyCoeff(const Factor& f);
 
-class Monomial {
+class Core {
 public:
   using value_type = std::vector<Factor>;
   using const_iterator = value_type::const_iterator;
 
-  Monomial() {}
-  Monomial(const value_type& v) : val(v) { sort(); proj(); }
+  Core() {}
+  Core(const value_type& v) : val(v) { sort(); proj(); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   value_type::size_type size() const { return val.size(); }
@@ -51,10 +51,18 @@ public:
 
   F getCoeff() const;
   void unifyCoeff();
-private:
+protected:
   void sort();
   void proj();
+private:
   value_type val;
+};
+
+
+class Monomial: public Core {
+public:
+  Monomial() {}
+  Monomial(const value_type& v) : val(v) { sort(); proj(); }
 };
 
 bool operator< (const Monomial&, const Monomial&);
