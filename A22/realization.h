@@ -149,12 +149,14 @@ public:
   using value_type = std::array<Actions, MAX_DEG>;
 
   Operators() { create(); }
+  Operators(const F& f) { create(f); }
 
   value_type::value_type& operator[](int n) { return val[n]; }
   const value_type::value_type& operator[](int n) const { return val[n]; }
   Operators& operator +=(const Operators&);
 private:
   void create();
+  void create(const F&);
   value_type val;
 };
 
