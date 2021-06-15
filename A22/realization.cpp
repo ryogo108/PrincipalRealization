@@ -371,6 +371,11 @@ void Operators::create()
   }
 }
 
+void Operators::create(const F& f)
+{
+  val[DEG0] = Actions(f);
+}
+
 Operators& Operators::operator+=(const Operators& rhs)
 {
   for(Operators::size_type i = MIN_DEG;
@@ -413,6 +418,7 @@ Operators operator*(const Operators& lhs, const Operators& rhs)
 
 Operators pow(const Operators& A, int n)
 {
+  if(n == 0) return Operators(F(1));
   if(n < 0) {
     std::cerr << "pow(Action A, int n) は n < 0 で未定義" << std::endl;
     exit(1);
