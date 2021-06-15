@@ -316,7 +316,7 @@ F factorial(int n)
   return F(n) * factorial(n - 1);
 }
 
-Operators Operators::operator+=(const Operators& rhs)
+Operators& Operators::operator+=(const Operators& rhs)
 {
   for(Operators::size_type i = MIN_DEG;
       i < MAX_DEG; ++i) {
