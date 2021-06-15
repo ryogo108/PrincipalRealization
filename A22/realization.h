@@ -168,18 +168,8 @@ private:
 Operators operator*(const F&, const Operators&);
 Operators operator*(const Operators&, const Operators&);
 
-Actions E_plus(const H& a, int n);
-Actions E_minus(const H& a, int n);
-
-class X {
-public:
-  X() {}
-  X(const H& _a, int _d) :a(_a), d(_d) {};
-private:
-  H a;
-  int d;
-};
-
-S operator* (const X&, const S&);
+const Operators E_plus(const H& a);
+const Operators E_minus(const H& a);
+const Operators X(const H& a);
 
 #endif

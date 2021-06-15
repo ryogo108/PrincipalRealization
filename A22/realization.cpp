@@ -78,11 +78,6 @@ bool operator< (const Core& lhs, const Core& rhs)
   return false;
 }
 
-S operator* (const X& x, const S& v)
-{
-  return v;
-}
-
 H H::proj(int n) const
 {
   if((n - 1) % CoxeterNum == 0)
@@ -496,30 +491,30 @@ Operators pow(const Operators& A, int n)
   return A * pow(A, n - 1);
 }
 
-Actions E_minus(const H& a, int n)
+const Operators E_minus(const H& a)
 {
   using std::size_t;
-  Operators val;
+  Operators ret;
   Operators A;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
     A[i] = (F(CoxeterNum) / F(-i + Operators::DEG0)) * Actions(Factor(a, -i + Operators::DEG0));
   }
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
-    val += (F(1) / factorial(i)) * pow(A, i);
+    ret += (F(1) / factorial(i)) * pow(A, i);
   }
-  return val[n + Operators::DEG0];
+  return ret;
 }
 
-Actions E_plus(const H& a, int n)
+const Operators E_plus(const H& a)
 {
   using std::size_t;
-  Operators val;
+  Operators ret;
   Operators A;
   for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
     A[-i + 2 * Operators::DEG0] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i - Operators::DEG0));
   }
   for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
-    val += (F(1) / factorial(i)) * pow(A, i);
+    ret += (F(1) / factorial(i)) * pow(A, i);
   }
-  return val[n + Operators::DEG0];
+  return ret;
 }
