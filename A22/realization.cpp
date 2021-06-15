@@ -295,3 +295,17 @@ S operator*(const Factor& f, const S& v)
   std::cerr << "Factor (*, 0) is not defined action of this realization." << std::endl;
   exit(1);
 }
+
+Actions E_minus(const H& a, int n)
+{
+  using std::size_t;
+  Operators val;
+  Operators A;
+  for(size_t i = DEG0 + 1; i < MAX_DEG; ++i) {
+    A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i)) ;
+  }
+  for(int i = 0; i < (MAX_DEG - DEG0); ++i) {
+    val += (F(1) / factorial(i)) *pow(A, i);
+  }
+  return val[n + DEG0];
+}
