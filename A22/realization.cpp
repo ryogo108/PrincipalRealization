@@ -518,3 +518,8 @@ const Operators E_plus(const H& a)
   }
   return ret;
 }
+
+const Operators X(const H& a)
+{
+  return E_minus(-a) * E_plus(-a);
+}
