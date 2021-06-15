@@ -105,6 +105,11 @@ S operator*(const Action&, const S&);
 using Actions = std::map<Action, F>;
 S operator*(const Actions&, const S&);
 
+const std::size_t DEG0 = 2;
+const std::size_t MAX_DEG = 2 * DEG0 + 1;
+const std::size_t MIN_DEG = 0;
+using Operators = std::array<Actions, MAX_DEG>;
+
 Actions E_plus(const H& a, int n);
 Actions E_minus(const H& a, int n);
 
