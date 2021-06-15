@@ -148,10 +148,13 @@ public:
   static const size_type MIN_DEG = 0;
   using value_type = std::array<Actions, MAX_DEG>;
 
+  Operators() { create(); }
+
   value_type::value_type& operator[](int n) { return val[n]; }
   const value_type::value_type& operator[](int n) const { return val[n]; }
   Operators& operator +=(const Operators&);
 private:
+  void create();
   value_type val;
 };
 
