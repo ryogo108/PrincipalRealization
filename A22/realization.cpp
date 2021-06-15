@@ -50,7 +50,7 @@ bool operator== (const H& lhs, const H& rhs)
   return lhs.getVal() == rhs.getVal();
 }
 
-bool operator< (const Monomial& lhs, const Monomial& rhs)
+bool operator< (const Core& lhs, const Core& rhs)
 {
   if(lhs.size() != rhs.size()) return lhs.size() < rhs.size();
   Core::const_iterator it1 = lhs.begin();

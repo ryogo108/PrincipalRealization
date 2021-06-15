@@ -68,7 +68,7 @@ public:
   Monomial(const value_type& v) : Core(v) {};
 };
 
-bool operator< (const Monomial&, const Monomial&);
+bool operator< (const Core&, const Core&);
 std::ostream& operator<< (std::ostream&, const Monomial&);
 
 class S {
