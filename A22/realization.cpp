@@ -216,7 +216,7 @@ S operator*(const Action& a, const S& v)
   S ret = v;
   for(Action::const_reverse_iterator riter = a.rbegin();
       riter != a.rend(); ++riter) {
-    ret += (*riter) * ret;
+    ret = (*riter) * ret;
   }
   return ret;
 }
@@ -234,10 +234,10 @@ S operator*(const F& a, const S& v)
 S operator*(const Actions& a, const S& v)
 {
   if(a.empty()) return S();
-  S ret = v;
+  S ret;
   for(Actions::const_iterator iter = a.begin();
       iter != a.end(); ++iter) {
-    ret += (iter -> second) * ((iter -> first) * ret);
+    ret += (iter -> second) * ((iter -> first) * v);
   }
   return ret;
 }
@@ -302,6 +302,7 @@ S derive(const Factor& f, const S& v)
 
 S operator*(const Factor& f, const S& v)
 {
+
   if(f.second < 0)
     return append(f, v);
   if(f.second > 0)
