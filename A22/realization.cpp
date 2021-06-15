@@ -316,6 +316,23 @@ F factorial(int n)
   return F(n) * factorial(n - 1);
 }
 
+Actions& Actions::operator+=(const Actions& rhs)
+{
+  for(Actions::const_iterator iter = rhs.begin();
+      iter != rhs.end(); ++iter) {
+    value_type::iterator it = val.find(iter -> first);
+    if(it != val.end()) {
+      it -> second += iter -> second;
+    }
+    else
+      val.insert(*iter);
+  }
+
+  omit();
+
+  return *this;
+}
+
 Operators& Operators::operator+=(const Operators& rhs)
 {
   for(Operators::size_type i = MIN_DEG;
