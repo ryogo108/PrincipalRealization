@@ -22,6 +22,7 @@ public:
   H proj(int n) const;
   F getProjVal(int n) const;
 
+  H operator+=(const H&);
   H operator-() const;
 
 private:
@@ -30,6 +31,7 @@ private:
 
 std::ostream& operator<< (std::ostream&, const H& a);
 bool operator==(const H&, const H&);
+H operator+(const H&, const H&);
 
 using Factor = std::pair<H, int>;
 std::ostream& operator<< (std::ostream&, const Factor&);
@@ -149,7 +151,7 @@ S operator*(const Actions&, const S&);
 class Operators {
 public:
   using size_type = std::size_t;
-  static const size_type DEG0 = 5;
+  static const size_type DEG0 = 10;
   static const size_type MAX_DEG = 2 * DEG0 + 1;
   static const size_type MIN_DEG = 0;
   using value_type = std::array<Actions, MAX_DEG>;
