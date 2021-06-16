@@ -59,9 +59,21 @@ ostream& operator<< (ostream& os, const S& v)
   return os << endl;
 }
 
+H& H::operator+=(const H& rhs)
+{
+  val[0] += rhs.val[0];
+  val[1] += rhs.val[1];
+  return *this;
+}
+
 H H::operator-() const
 {
   return H(-val[0], -val[1]);
+}
+
+H operator+(H lhs, const H& rhs)
+{
+  return lhs += rhs;
 }
 
 bool operator== (const H& lhs, const H& rhs)

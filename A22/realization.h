@@ -22,7 +22,7 @@ public:
   H proj(int n) const;
   F getProjVal(int n) const;
 
-  H operator+=(const H&);
+  H& operator+=(const H&);
   H operator-() const;
 
 private:
@@ -31,7 +31,7 @@ private:
 
 std::ostream& operator<< (std::ostream&, const H& a);
 bool operator==(const H&, const H&);
-H operator+(const H&, const H&);
+H operator+(H, const H&);
 
 using Factor = std::pair<H, int>;
 std::ostream& operator<< (std::ostream&, const Factor&);
