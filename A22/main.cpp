@@ -28,11 +28,22 @@ int main()
   cout << "Factor(a, 1) * (Factor(a, -1) * v)= " << Factor(a, 1) * (Factor(a, -1) * v) << endl;
   cout << "Factor(a, -1) * (Factor(a, 1) * v)= " << Factor(a, -1) * (Factor(a, 1) * v) << endl;
   cout << "E_minus(a) = " << E_minus(a) << endl;
+  cout << "E_minus(a)[-1] * v = " << E_minus(a)[-1] * v << endl;
+  cout << "E_minus(a)[0] * v = " << E_minus(a)[0] * v << endl;
+  cout << "E_minus(a)[1] * v = " << E_minus(a)[1] * v << endl;
+  cout << "E_minus(a)[2] * v = " << E_minus(a)[2] * v << endl;
+  cout << "E_minus(a)[3] * v = " << E_minus(a)[3] * v << endl;
+  cout << "E_minus(a)[4] * v = " << E_minus(a)[4] * v << endl;
   cout << "E_minus(a)[5] * v = " << E_minus(a)[5] * v << endl;
   cout << "E_plus(a) = " << E_plus(a) << endl;
   cout << "E_plus(a)[-1] * v = " << E_plus(a)[-1] * v << endl;
+  cout << "X(a) = " << X(a) << endl;
+  cout << "X(a)[0] * v = " << X(a)[0] * v << endl;
   cout << "X(a)[3] * v = " << X(a)[3] * v << endl;
   cout << "X(a)[4] * v = " << X(a)[4] * v << endl;
   cout << "X(a)[5] * v = " << X(a)[5] * v << endl;
+  cout << "X(a)[0] * X(a)[5] * v = " << X(a)[0] * X(a)[5] * v << endl;
+  cout << "X(alpha1)[3] * X(alpha2)[4] * v = " << X(alpha1)[3] * X(alpha2)[4] * v << endl;
+  cout << "X(alpha2)[4] * X(alpha1)[3] * v = " << X(alpha2)[4] * X(alpha1)[3] * v << endl;
   return 0;
 }
