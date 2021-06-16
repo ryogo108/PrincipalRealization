@@ -514,13 +514,13 @@ const Operators E_minus(const H& a)
 
 const Operators E_plus(const H& a)
 {
-  using std::size_t;
+  const auto MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
   Operators ret;
   Operators A;
-  for(size_t i = Operators::DEG0 + 1; i < Operators::MAX_DEG; ++i) {
-    A[-i + 2 * Operators::DEG0] = (F(CoxeterNum) / F(i - Operators::DEG0)) * Actions(Factor(a, i - Operators::DEG0));
+  for(int i = 1; i < MAX_DEG; ++i) {
+    A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i));
   }
-  for(int i = 0; i < (Operators::MAX_DEG - Operators::DEG0); ++i) {
+  for(int i = 0; i < MAX_DEG; ++i) {
     ret += (F(1) / factorial(i)) * pow(A, i);
   }
   return ret;
