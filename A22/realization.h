@@ -46,7 +46,7 @@ public:
   using const_reverse_iterator = value_type::const_reverse_iterator;
 
   Core() {}
-  Core(const value_type& v) : val(v) { sort(); proj(); }
+  Core(const value_type& v) : val(v) { proj(); }
   Core(const Factor& f) { push_back(f); }
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
@@ -60,7 +60,6 @@ public:
   F getCoeff() const;
   void unifyCoeff();
 protected:
-  void sort();
   void proj();
 private:
   value_type val;

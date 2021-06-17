@@ -113,13 +113,6 @@ F H::getProjVal(int n) const
   return F(0);
 }
 
-void Core::sort()
-{
-  std::sort(val.begin(), val.end(), [](const Factor& lhs, const Factor& rhs){
-    return lhs.second < rhs.second;
-  });
-}
-
 Factor proj(const Factor& f)
 {
   Factor ret = Factor(f.first.proj(f.second), f.second);
@@ -262,7 +255,6 @@ S operator*(const Actions& a, const S& v)
 void Core::push_back(const Factor& f)
 {
   val.push_back(::proj(f));
-  sort();
 }
 
 Monomial append(const Factor& f, Monomial m)
