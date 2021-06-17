@@ -223,6 +223,11 @@ void S::omit()
   }
 }
 
+S operator+(S lhs, const S& rhs)
+{
+  return lhs += rhs;
+}
+
 S operator*(const Action& a, const S& v)
 {
   S ret = v;
