@@ -216,9 +216,19 @@ void S::omit()
   }
 }
 
+S& S::operator-=(const S& v)
+{
+  return *this += (F(-1) * v);
+}
+
 S operator+(S lhs, const S& rhs)
 {
   return lhs += rhs;
+}
+
+S operator-(S lhs, const S& rhs)
+{
+  return lhs -= rhs;
 }
 
 S operator*(const Action& a, const S& v)
@@ -537,5 +547,7 @@ const Operators E_plus(const H& a)
 
 const Operators X(const H& a)
 {
-  return E_minus(-a) * E_plus(-a);
+  const F w("PRIM_ROOT_OF_UNITY");
+  F coeff = (F(1) - (w ^ -1)) / (F(12) * (F(1) - (w ^ -2)));
+  return coeff * E_minus(-a) * E_plus(-a);
 }

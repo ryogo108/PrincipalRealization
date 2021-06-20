@@ -92,6 +92,7 @@ public:
   std::pair<iterator, bool> insert(Term);
 
   S& operator+=(const S&);
+  S& operator-=(const S&);
 private:
   value_type val;
   Term& unify(Term&);
@@ -101,6 +102,7 @@ private:
 std::ostream& operator<< (std::ostream&, const S& v);
 
 S operator+(S, const S&);
+S operator-(S, const S&);
 S operator*(const F&, const S&);
 S operator*(const Factor&, const S&);
 
