@@ -101,6 +101,12 @@ bool operator==(const CF<p>& lhs, const CF<p>& rhs)
 }
 
 template <int p>
+bool operator!=(const CF<p>& lhs, const CF<p>& rhs)
+{
+  return !(lhs == rhs);
+}
+
+template <int p>
 CF<p> CF<p>::operator+=(const CF& rhs)
 {
   num = num * rhs.den
