@@ -269,6 +269,46 @@ TEST(RealizationTest, derivationTest)
   EXPECT_EQ(expect2, Factor(alpha1, 1) * v2);
 }
 
+TEST(RealizationTest, TestE_minus1)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  S expect1;
+  expect1.insert(S::Term(Monomial({Factor(alpha1, -1)}), F(-6)));
+  S expect2;
+  expect2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}), F(18)));
+  S expect3;
+  expect3.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}), F(36)));
+  S v;
+  v.insert(S::Term(Monomial(), F(1)));
+  EXPECT_EQ(expect1, E_minus(alpha1)[1]* v);
+  EXPECT_EQ(expect2, E_minus(alpha1)[2]* v);
+  EXPECT_EQ(expect3, E_minus(alpha1)[1] * (E_minus(alpha1)[1]* v));
+  EXPECT_EQ((E_minus(alpha1)[1] * E_minus(alpha1)[1]) * v,
+            E_minus(alpha1)[1] * (E_minus(alpha1)[1]* v));
+}
+
+TEST(RealizationTest, TestE_plus1)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  S expect1;
+  expect1.insert(S::Term(Monomial(), F(1)));
+  S expect2;
+  expect2.insert(S::Term(Monomial(), F(2)));
+  S v1;
+  v1.insert(S::Term(Monomial({Factor(alpha1, -1)}), F(1)));
+  S v2;
+  v2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}), F(1)));
+  EXPECT_EQ(expect1, E_plus(alpha1)[-1] * v1);
+  EXPECT_EQ(expect2, E_plus(alpha1)[-1] * (E_plus(alpha1)[-1]* v2));
+  EXPECT_EQ(expect1, E_plus(alpha1)[-2]* v2);
+  EXPECT_EQ((E_plus(alpha1)[-1] * E_plus(alpha1)[-1]) * v2,
+            E_plus(alpha1)[-1] * (E_plus(alpha1)[-1]* v2));
+}
+
 TEST(RealizationTest, TestX1)
 {
   const F w("PRIM_ROOT_OF_UNITY");
@@ -278,9 +318,11 @@ TEST(RealizationTest, TestX1)
   expect1.insert(S::Term(Monomial({Factor(alpha1, -1)}), (F(1) + w) / F(72)));
   S expect2;
   expect2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}),
-                         w / F(216)));
+                         -w / F(864)));
   S v;
   v.insert(S::Term(Monomial(), F(1)));
   EXPECT_EQ(expect1, X(alpha1, -1) * v);
   EXPECT_EQ(expect2, X(alpha1, -1) * (X(alpha1, -1) * v));
+  EXPECT_EQ((X(alpha1, -1) * X(alpha1, -1)) * v,
+            X(alpha1, -1) * (X(alpha1, -1) * v));
 }
