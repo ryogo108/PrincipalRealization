@@ -275,7 +275,8 @@ TEST(RealizationTest, straightenTest)
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
   Actions expect1;
-  expect1.insert(Actions::Term(Action(), F(1)));
+  expect1.insert(Actions::Term(Action({Factor(alpha1, -1), Factor(alpha1, 1)}), F(1)));
+  expect1.insert(Actions::Term(Action(), F(1) / F(6)));
   Actions expect2;
   expect2.insert(Actions::Term(Action({Factor(alpha1, -1), Factor(alpha1, 1)}), F(1)));
   Action v1 = Action({Factor(alpha1, 1), Factor(alpha1, -1)});
