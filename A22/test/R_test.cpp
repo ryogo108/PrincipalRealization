@@ -237,6 +237,38 @@ TEST(RealizationTest, FactorTest1_unifyCoefficient)
   EXPECT_EQ(expect2_6, unifyCoeff(f2_6));
 }
 
+TEST(RealizationTest, appendTest)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  S expect1;
+  expect1.insert(S::Term(Monomial({Factor(alpha1, -1)}), F(1)));
+  S expect2;
+  expect2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}), F(1)));
+  S v;
+  v.insert(S::Term(Monomial(), F(1)));
+  EXPECT_EQ(expect1, Factor(alpha1, -1) * v);
+  EXPECT_EQ(expect2, Factor(alpha1, -1) * (Factor(alpha1, -1) * v));
+}
+
+TEST(RealizationTest, derivationTest)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  S expect1;
+  expect1.insert(S::Term(Monomial(), F(1) / F(6)));
+  S expect2;
+  expect2.insert(S::Term(Monomial({Factor(alpha1, -1)}), F(1) / F(3)));
+  S v1;
+  v1.insert(S::Term(Monomial({Factor(alpha1, -1)}), F(1)));
+  S v2;
+  v2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}), F(1)));
+  EXPECT_EQ(expect1, Factor(alpha1, 1) * v1);
+  EXPECT_EQ(expect2, Factor(alpha1, 1) * v2);
+}
+
 TEST(RealizationTest, TestX1)
 {
   const F w("PRIM_ROOT_OF_UNITY");
