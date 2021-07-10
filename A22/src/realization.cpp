@@ -557,9 +557,10 @@ const Operators E_plus(const H& a)
   return ret;
 }
 
-const Operators X(const H& a)
+const Actions X(const H& a, int n)
 {
   const F w("PRIM_ROOT_OF_UNITY");
-  F coeff = (F(1) - (w ^ -1)) / (F(12) * (F(1) - (w ^ -2)));
-  return coeff * E_minus(-a) * E_plus(-a);
+  F coeff = (F(1) - (w ^ -1)) / (F(144) * (F(1) - (w ^ -2)));
+  Actions ret = (coeff * E_minus(-a) * E_plus(-a))[-n];
+  return ret;
 }

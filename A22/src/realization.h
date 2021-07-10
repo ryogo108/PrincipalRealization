@@ -180,6 +180,6 @@ Operators operator*(const Operators&, const Operators&);
 
 const Operators E_plus(const H& a);
 const Operators E_minus(const H& a);
-const Operators X(const H& a);
+const Actions X(const H&, int);
 
 #endif
