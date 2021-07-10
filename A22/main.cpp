@@ -12,7 +12,7 @@ int main()
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
   const H alpha2 = {(F(-1) + F(2) * w) / F(3),
-                    (F(1) - F(-2) * w) / F(3)};
+                    (F(1) - F(2) * w) / F(3)};
   cout << "A2 simple roots are followings:"
        << endl
        << "alpha1 = " << alpha1 << endl
@@ -22,28 +22,15 @@ int main()
 
   H a = alpha1;
   S v;
-  v.insert(std::make_pair(Monomial(), F(1)));
+  v.insert(std::make_pair(Monomial({Factor(alpha1, -1)}), F(1)));
   cout << "a = " << a << endl;
   cout << "v = " << v << endl;
-  cout << "Factor(a, 1) * (Factor(a, -1) * v)= " << Factor(a, 1) * (Factor(a, -1) * v) << endl;
-  cout << "Factor(a, -1) * (Factor(a, 1) * v)= " << Factor(a, -1) * (Factor(a, 1) * v) << endl;
-  cout << "E_minus(a) = " << E_minus(a) << endl;
-  cout << "E_minus(a)[-1] * v = " << E_minus(a)[-1] * v << endl;
-  cout << "E_minus(a)[0] * v = " << E_minus(a)[0] * v << endl;
-  cout << "E_minus(a)[1] * v = " << E_minus(a)[1] * v << endl;
-  cout << "E_minus(a)[2] * v = " << E_minus(a)[2] * v << endl;
-  cout << "E_minus(a)[3] * v = " << E_minus(a)[3] * v << endl;
-  cout << "E_minus(a)[4] * v = " << E_minus(a)[4] * v << endl;
-  cout << "E_minus(a)[5] * v = " << E_minus(a)[5] * v << endl;
-  cout << "E_plus(a) = " << E_plus(a) << endl;
-  cout << "E_plus(a)[-1] * v = " << E_plus(a)[-1] * v << endl;
-  cout << "X(a) = " << X(a) << endl;
-  cout << "X(a)[0] * v = " << X(a)[0] * v << endl;
-  cout << "X(a)[3] * v = " << X(a)[3] * v << endl;
-  cout << "X(a)[4] * v = " << X(a)[4] * v << endl;
-  cout << "X(a)[5] * v = " << X(a)[5] * v << endl;
-  cout << "X(a)[0] * X(a)[5] * v = " << X(a)[0] * X(a)[5] * v << endl;
-  cout << "X(alpha1)[3] * X(alpha2)[4] * v = " << X(alpha1)[3] * X(alpha2)[4] * v << endl;
-  cout << "X(alpha2)[4] * X(alpha1)[3] * v = " << X(alpha2)[4] * X(alpha1)[3] * v << endl;
+  const Operators Xal1 = X(alpha1), Xal2 = X(alpha2), Xal12 = X(alpha1 + alpha2);
+  cout << "[X(alpha1)[1], X(alpha1)[0]] * v = "
+       << X(alpha1)[1] * (X(alpha1)[0] * v) - X(alpha1)[0] * (X(alpha1)[1] * v) << endl;
+  cout << "X(alpha1 + alpha2)[1] * v = " << X(alpha1 + alpha2)[1] * v << endl;
+  cout << "X(-alpha2)[1] * v = " << X(-alpha2)[1] * v << endl;
+  cout << "Factor(alpha1, 1) * v = " << Factor(alpha1, 1) * v << endl;
+
   return 0;
 }
