@@ -78,6 +78,7 @@ std::ostream& operator<< (std::ostream&, const Monomial&);
 class S {
 public:
   using value_type = std::map<Monomial, F>;
+  using size_type = value_type::size_type;
   using iterator = value_type::iterator;
   using const_iterator = value_type::const_iterator;
   using Term = std::pair<Monomial, F>;
@@ -90,6 +91,8 @@ public:
   const_iterator end() const { return val.end(); }
 
   std::pair<iterator, bool> insert(Term);
+  const_iterator find(const Monomial& m) const { return val.find(m); };
+  size_type size() const { return val.size(); };
 
   S& operator+=(const S&);
   S& operator-=(const S&);
@@ -101,6 +104,7 @@ private:
 
 std::ostream& operator<< (std::ostream&, const S& v);
 
+bool operator==(const S&, const S&);
 S operator+(S, const S&);
 S operator-(S, const S&);
 S operator*(const F&, const S&);
