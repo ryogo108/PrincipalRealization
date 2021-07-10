@@ -242,9 +242,13 @@ TEST(RealizationTest, TestX1)
   const F w("PRIM_ROOT_OF_UNITY");
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
-  S expect;
-  expect.insert(S::Term(Monomial({Factor(alpha1, -1)}), (F(1) + w) / F(72)));
+  S expect1;
+  expect1.insert(S::Term(Monomial({Factor(alpha1, -1)}), (F(1) + w) / F(72)));
+  S expect2;
+  expect2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}),
+                         w / F(216)));
   S v;
   v.insert(S::Term(Monomial(), F(1)));
-  EXPECT_EQ(expect, X(alpha1, -1) * v);
+  EXPECT_EQ(expect1, X(alpha1, -1) * v);
+  EXPECT_EQ(expect2, X(alpha1, -1) * (X(alpha1, -1) * v));
 }
