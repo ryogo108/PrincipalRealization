@@ -416,14 +416,11 @@ Actions& Actions::operator*=(const Actions& rhs)
       it1 != val.end(); ++it1) {
     for(Actions::const_iterator it2 = rhs.begin();
         it2 != rhs.end(); ++it2) {
+      Actions a = straighten((it1 -> first) * (it2 -> first));
       F coeff = (it1 -> second) * (it2 -> second);
-      Action a = (it1 -> first) * (it2 -> first);
-      value_type::iterator it = ret.find(a);
-      if(it != ret.end()) {
-        it -> second += coeff;
+      for(auto j = a.begin(); j != a.end(); ++j) {
+        ret[j -> first] += coeff * j -> second;
       }
-      else
-        ret.insert(Term(a, coeff));
     }
   }
 
@@ -431,6 +428,11 @@ Actions& Actions::operator*=(const Actions& rhs)
   omit();
 
   return *this;
+}
+
+Actions straighten(const Action& a)
+{
+  return Actions(a);
 }
 
 Actions operator*(Actions lhs, const Actions& rhs)

@@ -147,6 +147,8 @@ private:
   value_type val;
 };
 
+Actions straighten(const Action&);
+
 std::ostream& operator<<(std::ostream&, const Actions&);
 
 Actions operator*(const F&, const Actions&);
