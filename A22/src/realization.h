@@ -123,6 +123,7 @@ S operator*(const Action&, const S&);
 class Actions {
 public:
   using value_type = std::map<Action, F>;
+  using size_type = value_type::size_type;
   using iterator = value_type::iterator;
   using const_iterator = value_type::const_iterator;
   using Term = std::pair<Action, F>;
@@ -137,11 +138,13 @@ public:
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   bool empty() const { return val.empty(); }
+  std::pair<iterator, bool> insert(Term);
+  size_type size() const { return val.size(); };
+  const_iterator find(const Action& a) const { return val.find(a); };
 
   Actions& operator+=(const Actions&);
   Actions& operator*=(const Actions&);
 private:
-  std::pair<iterator, bool> insert(Term);
   Term& unify(Term&);
   void omit();
   value_type val;
@@ -153,6 +156,8 @@ std::ostream& operator<<(std::ostream&, const Actions&);
 
 Actions operator*(const F&, const Actions&);
 Actions operator*(Actions, const Actions&);
+
+bool operator==(const Actions&, const Actions&);
 
 S operator*(const Actions&, const S&);
 

@@ -269,6 +269,22 @@ TEST(RealizationTest, derivationTest)
   EXPECT_EQ(expect2, Factor(alpha1, 1) * v2);
 }
 
+TEST(RealizationTest, straightenTest)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  Actions expect1;
+  expect1.insert(Actions::Term(Action(), F(1)));
+  Actions expect2;
+  expect2.insert(Actions::Term(Action({Factor(alpha1, -1), Factor(alpha1, 1)}), F(1)));
+  Action v1 = Action({Factor(alpha1, 1), Factor(alpha1, -1)});
+  Action v2 = Action({Factor(alpha1, -1), Factor(alpha1, 1)});
+  EXPECT_EQ(expect1, straighten(v1));
+  EXPECT_EQ(expect2, straighten(v2));
+
+}
+
 TEST(RealizationTest, TestE_minus1)
 {
   const F w("PRIM_ROOT_OF_UNITY");

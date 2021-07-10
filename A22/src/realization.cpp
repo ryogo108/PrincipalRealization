@@ -228,6 +228,18 @@ bool operator==(const S& lhs, const S& rhs)
   return true;
 }
 
+bool operator==(const Actions& lhs, const Actions& rhs)
+{
+  if(lhs.size() != rhs.size()) return false;
+  for(auto iter = lhs.begin();
+      iter != lhs.end(); ++iter) {
+    auto target = rhs.find(iter -> first);
+    if(target == rhs.end()) return false;
+    if(iter -> second != target -> second) return false;
+  }
+  return true;
+}
+
 S& S::operator-=(const S& v)
 {
   return *this += (F(-1) * v);
