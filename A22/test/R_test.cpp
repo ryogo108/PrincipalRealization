@@ -246,5 +246,5 @@ TEST(RealizationTest, TestX1)
   expect.insert(S::Term(Monomial({Factor(alpha1, -1)}), (F(1) + w) / F(72)));
   S v;
   v.insert(S::Term(Monomial(), F(1)));
-  EXPECT_EQ(expect, X(alpha1)[-1] * v);
+  EXPECT_EQ(expect, X(alpha1, -1) * v);
 }
