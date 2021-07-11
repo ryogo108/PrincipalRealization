@@ -442,9 +442,26 @@ Actions& Actions::operator*=(const Actions& rhs)
   return *this;
 }
 
+F commutant(const Factor& f1, const Factor& f2)
+{
+  if(f1.second != -f2.second) return F(0);
+  return (F(f1.second) / F(6)) * f1.first.innerProd(f2.first);
+}
+
 Actions straighten(const Action& a)
 {
-  return Actions(a);
+  if(a.size() != 2) return Actions(a);
+  using std::vector;
+  auto it = a.begin();
+  if(it -> second < (it + 1) -> second) return Actions(a);
+  Actions ret;
+  Action commutedAction = Action({*(it + 1), *it});
+  const F coeff  = commutedAction.getCoeff();
+  commutedAction.unifyCoeff();
+  ret[commutedAction] = coeff;
+  F com = commutant(*it, *(it + 1));
+  ret[Action()] = com;
+  return ret;
 }
 
 Actions operator*(Actions lhs, const Actions& rhs)

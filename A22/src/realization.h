@@ -24,6 +24,7 @@ public:
 
   H& operator+=(const H&);
   H operator-() const;
+  F innerProd(const H& h) const { return F(3) * (val[0] * h.val[1] + val[1] * h.val[0]); };
 
 private:
  value_type val;
@@ -141,6 +142,7 @@ public:
   std::pair<iterator, bool> insert(Term);
   size_type size() const { return val.size(); };
   const_iterator find(const Action& a) const { return val.find(a); };
+  F& operator[](const Action& a) { return val[a]; }
 
   Actions& operator+=(const Actions&);
   Actions& operator*=(const Actions&);
