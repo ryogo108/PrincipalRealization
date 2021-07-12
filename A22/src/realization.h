@@ -1,4 +1,5 @@
 #ifndef GUARD_realization_h
+
 #define GUARD_realization_h
 // realization.h
 #include <iostream>
@@ -33,6 +34,7 @@ private:
 std::ostream& operator<< (std::ostream&, const H& a);
 bool operator==(const H&, const H&);
 H operator+(H, const H&);
+H operator-(H, const H&);
 H operator*(const F&, const H&);
 
 using Factor = std::pair<H, int>;
@@ -196,6 +198,10 @@ Operators operator*(const Operators&, const Operators&);
 const Operators E_plus(const H& a);
 const Operators E_minus(const H& a);
 const Actions X(const H&, int);
+
+H nu(int n, const H&);
+F epsilon_2(const H&, const H&);
+
 const Actions comX(const H&, int, int);
 
 #endif

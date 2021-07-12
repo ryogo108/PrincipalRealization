@@ -79,6 +79,11 @@ H operator+(H lhs, const H& rhs)
   return lhs += rhs;
 }
 
+H operator-(H lhs, const H& rhs)
+{
+  return lhs += -rhs;
+}
+
 H operator*(const F& lhs, const H& rhs)
 {
   const H::value_type& v = rhs.getVal();

@@ -367,6 +367,34 @@ TEST(RealizationTest, TestX1)
             X(alpha1, -1) * (X(alpha1, -1) * v));
 }
 
+TEST(RealizationTest, TestNu)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  const H alpha2 = {(F(-1) + F(2) * w) / F(3),
+                    (F(1) - F(2) * w) / F(3)};
+  EXPECT_EQ(alpha1, nu(-6, alpha1));
+  EXPECT_EQ(alpha1 + alpha2, nu(-5, alpha1));
+  EXPECT_EQ(alpha2, nu(-4, alpha1));
+  EXPECT_EQ(-alpha1, nu(-3, alpha1));
+  EXPECT_EQ(-alpha1 - alpha2, nu(-2, alpha1));
+  EXPECT_EQ(-alpha2, nu(-1, alpha1));
+  EXPECT_EQ(alpha1, nu(0, alpha1));
+  EXPECT_EQ(alpha1 + alpha2, nu(1, alpha1));
+  EXPECT_EQ(alpha2, nu(2, alpha1));
+  EXPECT_EQ(-alpha1, nu(3, alpha1));
+  EXPECT_EQ(-alpha1 - alpha2, nu(4, alpha1));
+  EXPECT_EQ(-alpha2, nu(5, alpha1));
+  EXPECT_EQ(alpha1, nu(6, alpha1));
+
+  EXPECT_EQ(-alpha1, nu(1, alpha2));
+}
+
+TEST(RealizationTest, TestEpsilon_2)
+{
+}
+
 TEST(RealizationTest, TestComX1)
 {
   const F w("PRIM_ROOT_OF_UNITY");
