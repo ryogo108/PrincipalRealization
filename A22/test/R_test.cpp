@@ -368,6 +368,8 @@ TEST(RealizationTest, TestX1)
                          -w / F(864)));
   S v;
   v.insert(S::Term(Monomial(), F(1)));
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  if(MAX_DEG < 1) return;
   EXPECT_EQ(expect1, X(alpha1, -1) * v);
   EXPECT_EQ(expect2, X(alpha1, -1) * (X(alpha1, -1) * v));
   EXPECT_EQ((X(alpha1, -1) * X(alpha1, -1)) * v,
@@ -412,6 +414,9 @@ TEST(RealizationTest, TestComX1)
   const F w("PRIM_ROOT_OF_UNITY");
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  if(MAX_DEG < 1) return;
+
   Actions expect1 = X(alpha1, -1) * X(alpha1, 0) - X(alpha1, 0) * X(alpha1, -1);
   Actions expect2 = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
   EXPECT_EQ(expect1, comX(alpha1, -1, 0));
