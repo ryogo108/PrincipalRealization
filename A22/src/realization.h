@@ -174,16 +174,28 @@ S operator*(const Actions&, const S&);
 class Operators {
 public:
   using size_type = std::size_t;
-  static const size_type DEG0 = 10;
-  static const size_type MAX_DEG = 2 * DEG0 + 1;
+  static const size_type DEG0 = 0;
+  static const size_type MAX_DEG = 2 * DEG0;
   static const size_type MIN_DEG = 0;
-  using value_type = std::array<Actions, MAX_DEG>;
+  using value_type = std::array<Actions, MAX_DEG + 1>;
 
   Operators() { create(); }
   Operators(const F& f) { create(f); }
 
-  value_type::value_type& operator[](int n) { return val[n + DEG0]; }
-  const value_type::value_type& operator[](int n) const { return val[n + DEG0]; }
+  value_type::value_type& operator[](int n) {
+    if(n + DEG0 > MAX_DEG || n + DEG0 < MIN_DEG) {
+    std::cerr << "Error in Operators::operator[] : Out of range reference" << std::endl;
+    exit(1);
+  }
+    return val[n + DEG0];
+  }
+  const value_type::value_type& operator[](int n) const {
+    if(n + DEG0 > MAX_DEG || n + DEG0 < MIN_DEG) {
+    std::cerr << "Error in Operators::operator[] : Out of range reference" << std::endl;
+    exit(1);
+  }
+    return val[n + DEG0];
+  }
   Operators& operator +=(const Operators&);
   friend std::ostream& operator<< (std::ostream&, const Operators&);
 private:

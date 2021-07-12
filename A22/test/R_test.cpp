@@ -323,11 +323,14 @@ TEST(RealizationTest, TestE_minus1)
   expect3.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}), F(36)));
   S v;
   v.insert(S::Term(Monomial(), F(1)));
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  if(MAX_DEG < 1) return;
   EXPECT_EQ(expect1, E_minus(alpha1)[1]* v);
-  EXPECT_EQ(expect2, E_minus(alpha1)[2]* v);
   EXPECT_EQ(expect3, E_minus(alpha1)[1] * (E_minus(alpha1)[1]* v));
   EXPECT_EQ((E_minus(alpha1)[1] * E_minus(alpha1)[1]) * v,
             E_minus(alpha1)[1] * (E_minus(alpha1)[1]* v));
+  if(MAX_DEG < 2) return;
+  EXPECT_EQ(expect2, E_minus(alpha1)[2]* v);
 }
 
 TEST(RealizationTest, TestE_plus1)

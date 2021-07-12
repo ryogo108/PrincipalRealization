@@ -594,7 +594,7 @@ Actions operator*(Actions lhs, const Actions& rhs)
 
 void Operators::create()
 {
-  for(size_type i = MIN_DEG; i < MAX_DEG; ++i) {
+  for(size_type i = MIN_DEG; i <= MAX_DEG; ++i) {
     val[i] = Actions();
   }
 }
@@ -607,7 +607,7 @@ void Operators::create(const F& f)
 Operators& Operators::operator+=(const Operators& rhs)
 {
   for(Operators::size_type i = MIN_DEG;
-      i < MAX_DEG; ++i) {
+      i <= MAX_DEG; ++i) {
     val[i] += rhs.val[i];
   }
   return *this;
@@ -619,7 +619,7 @@ Operators operator*(const F& lhs, const Operators& rhs)
   const int MIN_DEG = int(Operators::MIN_DEG) - int(Operators::DEG0);
 
   Operators ret;
-  for(int i = MIN_DEG; i < MAX_DEG; ++i) {
+  for(int i = MIN_DEG; i <= MAX_DEG; ++i) {
     ret[i] = lhs * rhs[i];
   }
   return ret;
@@ -632,10 +632,10 @@ Operators operator*(const Operators& lhs, const Operators& rhs)
   const int MIN_DEG = int(Operators::MIN_DEG) - int(Operators::DEG0);
 
   Operators ret;
-  for(int i = MIN_DEG; i < MAX_DEG; ++i) {
-    for(int j = MIN_DEG; j < MAX_DEG; ++j) {
+  for(int i = MIN_DEG; i <= MAX_DEG; ++i) {
+    for(int j = MIN_DEG; j <= MAX_DEG; ++j) {
       int target = i + j;
-      if(target >= MAX_DEG || target < MIN_DEG)
+      if(target > MAX_DEG || target < MIN_DEG)
         continue;
       ret[target] += lhs[i] * rhs[j];
     }
@@ -657,7 +657,7 @@ ostream& operator<< (ostream& os, const Actions& a)
 
 ostream& operator<< (ostream& os, const Operators& op)
 {
-  for(int i = Operators::MIN_DEG; i < Operators::MAX_DEG; ++i) {
+  for(int i = Operators::MIN_DEG; i <= Operators::MAX_DEG; ++i) {
     if(i != Operators::MIN_DEG)
       os << std::endl;
     os << "z^" << i - int(Operators::DEG0) << " : " << std::endl
@@ -687,12 +687,11 @@ const Operators E_minus(const H& a)
   const auto MIN_DEG = Operators::MIN_DEG - Operators::DEG0;
   Operators ret;
   Operators A;
-  for(size_t i = -1; i >= MIN_DEG; --i) {
+  for(int i = -1; i >= int(MIN_DEG); --i) {
     A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i));
   }
-  for(int i = 0; i < MAX_DEG; ++i) {
+  for(int i = 0; i <= MAX_DEG; ++i) {
     ret += (F(1) / factorial(i)) * pow(A, i);
-
   }
   return ret;
 }
@@ -702,10 +701,10 @@ const Operators E_plus(const H& a)
   const auto MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
   Operators ret;
   Operators A;
-  for(int i = 1; i < MAX_DEG; ++i) {
+  for(int i = 1; i <= MAX_DEG; ++i) {
     A[-i] = (F(CoxeterNum) / F(i)) * Actions(Factor(a, i));
   }
-  for(int i = 0; i < MAX_DEG; ++i) {
+  for(int i = 0; i <= MAX_DEG; ++i) {
     ret += (F(1) / factorial(i)) * pow(A, i);
   }
   return ret;
