@@ -393,6 +393,11 @@ TEST(RealizationTest, TestNu)
 
 TEST(RealizationTest, TestEpsilon_2)
 {
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  F expect = (w ^ -1);
+  EXPECT_EQ(expect, epsilon_2(alpha1, alpha1));
 }
 
 TEST(RealizationTest, TestComX1)
