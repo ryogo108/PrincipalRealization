@@ -371,9 +371,10 @@ TEST(RealizationTest, TestX1)
   const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
   if(MAX_DEG < 1) return;
   EXPECT_EQ(expect1, X(alpha1, -1) * v);
-  EXPECT_EQ(expect2, X(alpha1, -1) * (X(alpha1, -1) * v));
   EXPECT_EQ((X(alpha1, -1) * X(alpha1, -1)) * v,
             X(alpha1, -1) * (X(alpha1, -1) * v));
+  if(MAX_DEG < 2) return;
+  EXPECT_EQ(expect2, X(alpha1, -1) * (X(alpha1, -1) * v));
 }
 
 TEST(RealizationTest, TestNu)
