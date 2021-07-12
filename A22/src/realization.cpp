@@ -79,6 +79,12 @@ H operator+(H lhs, const H& rhs)
   return lhs += rhs;
 }
 
+H operator*(const F& lhs, const H& rhs)
+{
+  const H::value_type& v = rhs.getVal();
+  return H(lhs * v[0], lhs * v[1]) ;
+}
+
 bool operator== (const H& lhs, const H& rhs)
 {
   return lhs.getVal() == rhs.getVal();
@@ -708,13 +714,19 @@ const Actions X(const H& a, int n)
   return ret;
 }
 
-H nu(int, const H& a)
+H nu(int n, const H& a)
 {
-  return a;
+  const F w("PRIM_ROOT_OF_UNITY");
+  H::value_type v = a.getVal();
+  return H((w ^ n) * v[0], (w ^ -n) * v[1]);
 }
 
 F epsilon_2(const H& a1, const H& a2)
 {
+  using ZZ = F::coeff_type;
+  const F w("PRIM_ROOT_OF_UNITY");
+  return (ZZ((nu(-1, a1) + nu(-2, a1)).innerProd(a2)) % ZZ(2) == ZZ(0) ? F(1) : F(-1))
+         * (w ^ ZZ((nu(-1, a1) + F(2) * nu(-2, a1)).innerProd(a2)));
   return F(1);
 }
 

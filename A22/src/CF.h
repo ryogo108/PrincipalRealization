@@ -25,8 +25,8 @@ static NTL::ZZX phi(int p)
 
 template <int p> class CF {
   typedef NTL::ZZX ZZX;
-  typedef NTL::ZZX::coeff_type coeff_type;
 public:
+  typedef NTL::ZZX::coeff_type coeff_type; // which is NTL::ZZ
   CF() { num = ZZX(0); den = ZZX(1);}
   CF(coeff_type a) { num = ZZX(a); den = ZZX(1); }
   CF(long a) { num = ZZX(a); den = ZZX(1); }
@@ -34,6 +34,10 @@ public:
   CF(const std::string& s) { create(s); }
   ZZX getNum() const { return num; }
   ZZX getDen() const { return den; }
+  operator coeff_type() {
+    normalize();
+    if(NTL::deg(num) >= 2) { std::cerr << "Error in CF::coeff_type()" << std::endl; exit(1); }
+    return coeff_type(num[0] * den[0]); };
   CF operator+=(const CF& rhs);
   CF operator-=(const CF& rhs);
   CF operator*=(const CF& rhs);
@@ -181,6 +185,19 @@ CF<p> operator^(CF<p> lhs, int a)
   if(a == 0) return CF<p>(1);
   if(a % 2 == 0) {
     CF<p> tmp = lhs ^ (a / 2);
+    return tmp * tmp;
+  }
+  return lhs * (lhs ^ (a - 1));
+}
+
+template <int p>
+CF<p> operator^(CF<p> lhs, typename CF<p>::coeff_type a)
+{
+  using ZZ = typename CF<p>::coeff_type;
+  if( a < ZZ(0)) return (CF<p>(1) / lhs) ^ (-a);
+  if(a == ZZ(0)) return CF<p>(1);
+  if(a % ZZ(2) == ZZ(0)) {
+    CF<p> tmp = lhs ^ (a / ZZ(2));
     return tmp * tmp;
   }
   return lhs * (lhs ^ (a - 1));

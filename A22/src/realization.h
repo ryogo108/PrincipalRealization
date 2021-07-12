@@ -33,6 +33,7 @@ private:
 std::ostream& operator<< (std::ostream&, const H& a);
 bool operator==(const H&, const H&);
 H operator+(H, const H&);
+H operator*(const F&, const H&);
 
 using Factor = std::pair<H, int>;
 std::ostream& operator<< (std::ostream&, const Factor&);
