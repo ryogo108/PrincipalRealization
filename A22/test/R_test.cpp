@@ -29,6 +29,20 @@ TEST(CyclotomicFieldTest, 6thRootOfUnityTest2_pow)
   }
 }
 
+TEST(CyclotomicFieldTest, 6thRootOfUnityTest3_ZZ)
+{
+  using F_test = CF<6>;
+  using ZZ = F_test::coeff_type;
+  const F_test w("PRIM_ROOT_OF_UNITY");
+
+  ZZ expect1 = ZZ(1);
+  ZZ expect2 = ZZ(2);
+  EXPECT_EQ(expect1, ZZ(F(1)));
+  EXPECT_EQ(expect1, ZZ(w / w));
+  EXPECT_EQ(expect2, ZZ((F(2) * (w ^ 2)) / (w ^ 2)));
+  EXPECT_EQ(expect2, ZZ((F(2) * (w ^ 2)) / (w ^ 2)));
+}
+
 TEST(RealizationTest, HeisenbergTest1_Addition)
 {
   const F w("PRIM_ROOT_OF_UNITY");
