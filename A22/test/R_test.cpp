@@ -37,6 +37,7 @@ TEST(CyclotomicFieldTest, 6thRootOfUnityTest3_ZZ)
 
   ZZ expect1 = ZZ(1);
   ZZ expect2 = ZZ(2);
+  EXPECT_EQ(ZZ(0), ZZ(F(0)));
   EXPECT_EQ(expect1, ZZ(F(1)));
   EXPECT_EQ(expect1, ZZ(w / w));
   EXPECT_EQ(expect2, ZZ((F(2) * (w ^ 2)) / (w ^ 2)));

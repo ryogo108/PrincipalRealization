@@ -34,7 +34,20 @@ public:
   CF(const std::string& s) { create(s); }
   ZZX getNum() const { return num; }
   ZZX getDen() const { return den; }
-  operator coeff_type() { normalize(); if(NTL::deg(num) >= 2 || num[0] % den[0] != coeff_type(0) ) { std::cerr << "Error in CF::coeff_type()" << std::endl; exit(1); } return coeff_type(num[0] / den[0]); };
+  operator coeff_type() {
+    normalize();
+    if(NTL::deg(num) >= 2) {
+      std::cerr << "Error in CF::coeff_type() : val has imaginary part." << std::endl;
+      exit(1);
+    }
+    if(NTL::deg(num) == -1)
+      return coeff_type(0);
+    if(NTL::deg(den) == -1 || num[0] % den[0] != coeff_type(0)) {
+      std::cerr << "Error in CF::coeff_type() : val is NOT integer." << std::endl;
+      exit(1);
+    }
+    return coeff_type(num[0] / den[0]);
+  };
   CF operator+=(const CF& rhs);
   CF operator-=(const CF& rhs);
   CF operator*=(const CF& rhs);
