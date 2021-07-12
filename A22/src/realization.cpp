@@ -1,6 +1,7 @@
 #include <iostream>
 #include <deque>
 #include <utility>
+#include <algorithm>
 #include "realization.h"
 
 using std::ostream;
@@ -323,6 +324,7 @@ Factor deriveTarget(int n)
 
 S derive(Factor f, const S::Term& t)
 {
+	using std::count;
   S ret;
   const F coeff = getCoeff(f);
   Factor target = deriveTarget(f.second);
@@ -347,7 +349,6 @@ S derive(const Factor& f, const S& v)
 
 S operator*(const Factor& f, const S& v)
 {
-
   if(f.second < 0)
     return append(f, v);
   if(f.second > 0)
@@ -488,6 +489,7 @@ Actions straighten(const Action& origin)
   using std::deque;
   using std::pair;
   using std::vector;
+	using std::find_if;
   using std::copy;
   if(isStraightened(origin)) return Actions(origin);
   Actions ret;
