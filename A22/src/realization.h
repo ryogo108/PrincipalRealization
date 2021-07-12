@@ -159,6 +159,7 @@ Actions straighten(const Action&);
 
 std::ostream& operator<<(std::ostream&, const Actions&);
 
+Actions operator+(Actions, const Actions&);
 Actions operator-(Actions, const Actions&);
 Actions operator*(const F&, const Actions&);
 Actions operator*(Actions, const Actions&);
@@ -194,5 +195,6 @@ Operators operator*(const Operators&, const Operators&);
 const Operators E_plus(const H& a);
 const Operators E_minus(const H& a);
 const Actions X(const H&, int);
+const Actions comX(const H&, int, int);
 
 #endif

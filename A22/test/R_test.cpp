@@ -353,15 +353,11 @@ TEST(RealizationTest, TestX1)
             X(alpha1, -1) * (X(alpha1, -1) * v));
 }
 
-TEST(RealizationTest, TestThm1)
+TEST(RealizationTest, TestComX1)
 {
   const F w("PRIM_ROOT_OF_UNITY");
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
-  const H alpha2 = {(F(-1) + F(2) * w) / F(3),
-                    (F(1) - F(2) * w) / F(3)};
   Actions expect = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
-  Actions a = -(w / F(6)) * X(alpha1 + alpha2, -2) -
-               (F(1) / F(6)) * X(-alpha2, -2);
-  EXPECT_EQ(expect, a);
+  EXPECT_EQ(expect, comX(alpha1, -1, -1));
 }
