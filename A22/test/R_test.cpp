@@ -417,9 +417,9 @@ TEST(RealizationTest, TestComX1)
                     (F(1) + w) / F(3)};
   const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
   if(MAX_DEG < 1) return;
-
   Actions expect1 = X(alpha1, -1) * X(alpha1, 0) - X(alpha1, 0) * X(alpha1, -1);
   Actions expect2 = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
   EXPECT_EQ(expect1, comX(alpha1, -1, 0));
+  if(MAX_DEG < 2) return;
   EXPECT_EQ(expect2, comX(alpha1, -1, -1));
 }
