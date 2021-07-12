@@ -406,20 +406,8 @@ TEST(RealizationTest, TestComX1)
   const F w("PRIM_ROOT_OF_UNITY");
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
-  Actions expect1 = X(alpha1, -1) * X(alpha1, 1) - X(alpha1, 1) * X(alpha1, -1);
-  Actions expect2 = X(alpha1, -1) * X(alpha1, 0) - X(alpha1, 0) * X(alpha1, -1);
-  Actions expect3 = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
-  Actions expect4 = X(alpha1, -1) * X(alpha1, -2) - X(alpha1, -2) * X(alpha1, -1);
-  Actions expect5 = X(alpha1, -1) * X(alpha1, -3) - X(alpha1, -3) * X(alpha1, -1);
-  Actions expect6 = X(alpha1, -1) * X(alpha1, -4) - X(alpha1, -4) * X(alpha1, -1);
-  Actions expect7 = X(alpha1, -1) * X(alpha1, -5) - X(alpha1, -5) * X(alpha1, -1);
-  Actions expect8 = X(alpha1, -1) * X(alpha1, -6) - X(alpha1, -6) * X(alpha1, -1);
-  EXPECT_EQ(expect1, comX(alpha1, -1, 1));
-  EXPECT_EQ(expect2, comX(alpha1, -1, 0));
-  EXPECT_EQ(expect3, comX(alpha1, -1, -1));
-  EXPECT_EQ(expect4, comX(alpha1, -1, -2));
-  EXPECT_EQ(expect5, comX(alpha1, -1, -3));
-  EXPECT_EQ(expect6, comX(alpha1, -1, -4));
-  EXPECT_EQ(expect7, comX(alpha1, -1, -5));
-  EXPECT_EQ(expect8, comX(alpha1, -1, -6));
+  Actions expect1 = X(alpha1, -1) * X(alpha1, 0) - X(alpha1, 0) * X(alpha1, -1);
+  Actions expect2 = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
+  EXPECT_EQ(expect1, comX(alpha1, -1, 0));
+  EXPECT_EQ(expect2, comX(alpha1, -1, -1));
 }
