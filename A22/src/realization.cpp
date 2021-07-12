@@ -414,6 +414,28 @@ Actions& Actions::operator+=(const Actions& rhs)
   return *this;
 }
 
+Actions& Actions::operator-=(const Actions& rhs)
+{
+  for(Actions::const_iterator iter = rhs.begin();
+      iter != rhs.end(); ++iter) {
+    value_type::iterator it = val.find(iter -> first);
+    if(it != val.end()) {
+      it -> second -= iter -> second;
+    }
+    else
+      val[iter -> first] = - iter -> second;
+  }
+
+  omit();
+
+  return *this;
+}
+
+Actions operator-(Actions lhs, const Actions& rhs)
+{
+  return lhs -= rhs;
+}
+
 Action operator*(Action lhs, const Action& rhs)
 {
   for(Action::const_iterator iter = rhs.begin();

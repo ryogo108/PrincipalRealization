@@ -147,6 +147,7 @@ public:
   F& operator[](const Action& a) { return val[a]; }
 
   Actions& operator+=(const Actions&);
+  Actions& operator-=(const Actions&);
   Actions& operator*=(const Actions&);
 private:
   Term& unify(Term&);
@@ -158,6 +159,7 @@ Actions straighten(const Action&);
 
 std::ostream& operator<<(std::ostream&, const Actions&);
 
+Actions operator-(Actions, const Actions&);
 Actions operator*(const F&, const Actions&);
 Actions operator*(Actions, const Actions&);
 
