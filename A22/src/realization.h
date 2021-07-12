@@ -49,6 +49,7 @@ public:
   Core() {}
   Core(const value_type& v) : val(v) { proj(); }
   Core(const Factor& f) { push_back(f); }
+  Core(const const_iterator& b, const const_iterator& e) : val(b, e) {};
   const_iterator begin() const { return val.begin(); }
   const_iterator end() const { return val.end(); }
   const_reverse_iterator rbegin() const { return val.rbegin(); }
@@ -116,6 +117,7 @@ public:
   Action() {}
   Action(const value_type& v) : Core(v) {}
   Action(const Factor& f) : Core(f) {}
+  Action(const const_iterator& b, const const_iterator& e) : Core(b, e) {}
 };
 
 Action operator*(Action, const Action&);

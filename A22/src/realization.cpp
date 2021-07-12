@@ -1,4 +1,6 @@
 #include <iostream>
+#include <deque>
+#include <utility>
 #include "realization.h"
 
 using std::ostream;
@@ -448,19 +450,100 @@ F commutant(const Factor& f1, const Factor& f2)
   return (F(f1.second) / F(6)) * f1.first.innerProd(f2.first);
 }
 
-Actions straighten(const Action& a)
+bool isStraightened(const Action& a)
 {
-  if(a.size() != 2) return Actions(a);
+  if(a.size() < 2) return true;
+  for(auto it = a.begin(); it + 1 != a.end(); ++it) {
+    if(it -> second > (it + 1) -> second) {
+      return false;
+    }
+  }
+  return true;
+}
+
+Actions straighten(const Action& origin)
+{
+  using std::deque;
+  using std::pair;
   using std::vector;
-  auto it = a.begin();
-  if(it -> second < (it + 1) -> second) return Actions(a);
+  using std::copy;
+  if(isStraightened(origin)) return Actions(origin);
   Actions ret;
-  Action commutedAction = Action({*(it + 1), *it});
-  const F coeff  = commutedAction.getCoeff();
-  commutedAction.unifyCoeff();
-  ret[commutedAction] = coeff;
-  F com = commutant(*it, *(it + 1));
-  ret[Action()] = com;
+  deque<pair<Action, F> > dq; // A deque containing Actions which are not straightened with some coefficient.
+  dq.push_back(make_pair(origin, F(1)));
+  while(!dq.empty()) {
+    const Action a = dq.front().first;
+    const F coeff = dq.front().second;
+    dq.pop_front();
+    auto it = a.begin();
+    // Find an iterator it such that it -> second > (it + 1) -> second.
+    while(it + 1 != a.end() && it -> second <= (it + 1) -> second) ++it;
+    // it and (it + 1) are commutable
+    if(it -> second != -((it + 1) -> second)) {
+      // Calculate commutedAction
+      vector<Factor> v1(a.size());
+      auto i1 = v1.begin();
+      i1 = copy(a.begin(), it, i1);
+      *(i1++) = *(it + 1);
+      *(i1++) = *it;
+      i1 = copy(it + 2, a.end(), i1);
+      Action commutedAction(v1);
+
+      const F c1  = coeff * commutedAction.getCoeff();
+      commutedAction.unifyCoeff();
+      if(isStraightened(commutedAction)) {
+        ret[commutedAction] += c1;
+      }
+      else
+        dq.push_front(make_pair(commutedAction, c1));
+     continue;
+    }
+
+    // it and (it + 1) are NOT commutable
+    const auto it_next = find_if(it + 1, a.end(),
+      [&](const Factor& f) { return f.second != -(it -> second); });
+    // Calculate commutedAction
+    vector<Factor> v1(a.size());
+    auto i1 = v1.begin();
+    i1 = copy(a.begin(), it, i1);
+    i1 = copy(it + 1, it_next, i1);
+    *(i1++) = *it;
+    i1 = copy(it_next, a.end(), i1);
+    Action commutedAction(v1);
+
+    const F c1  = coeff * commutedAction.getCoeff();
+    commutedAction.unifyCoeff();
+    if(isStraightened(commutedAction)) {
+      ret[commutedAction] += c1;
+    }
+    else
+      dq.push_front(make_pair(commutedAction, c1));
+
+    // Calculate change term
+    vector<Factor> v2(a.size() - 2);
+    auto i2 = v2.begin();
+    i2 = copy(a.begin(), it, i2);
+    i2 = copy(it + 2, a.end(), i2);
+    Action change(v2);
+
+    const F c2  = F(int(it_next - it - 1)) *
+                  coeff *
+                  commutant(*it, *(it + 1)) *
+                  change.getCoeff();
+    change.unifyCoeff();
+    if(isStraightened(change)) {
+      ret[change] += c2;
+      continue;
+    }
+
+    auto j = find_if(dq.rbegin(), dq.rend(),
+      [&](const pair<Action, F>& f) { return f.first == change; });
+    if(j == dq.rend())
+      dq.push_back(make_pair(change, c2));
+    else{
+      j -> second += c2;
+    }
+  }
   return ret;
 }
 

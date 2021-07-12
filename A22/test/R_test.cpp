@@ -279,11 +279,20 @@ TEST(RealizationTest, straightenTest)
   expect1.insert(Actions::Term(Action(), F(1) / F(6)));
   Actions expect2;
   expect2.insert(Actions::Term(Action({Factor(alpha1, -1), Factor(alpha1, 1)}), F(1)));
+  Actions expect3;
+  expect3.insert(Actions::Term(Action({Factor(alpha1, -1)}), F(1) / F(3)));
+  expect3.insert(Actions::Term(Action({Factor(alpha1, -1), Factor(alpha1, -1),
+                                       Factor(alpha1, 1)}), F(1)));
+  Actions expect4;
+  expect4.insert(Actions::Term(Action({Factor(alpha1, -1), Factor(alpha1, -1), Factor(alpha1, 1)}), F(1)));
   Action v1 = Action({Factor(alpha1, 1), Factor(alpha1, -1)});
   Action v2 = Action({Factor(alpha1, -1), Factor(alpha1, 1)});
+  Action v3 = Action({Factor(alpha1, 1), Factor(alpha1, -1), Factor(alpha1, -1)});
+  Action v4 = Action({Factor(alpha1, -1), Factor(alpha1, -1), Factor(alpha1, 1)});
   EXPECT_EQ(expect1, straighten(v1));
   EXPECT_EQ(expect2, straighten(v2));
-
+  EXPECT_EQ(expect3, straighten(v3));
+  EXPECT_EQ(expect4, straighten(v4));
 }
 
 TEST(RealizationTest, TestE_minus1)
