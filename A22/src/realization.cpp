@@ -710,19 +710,27 @@ const Operators E_plus(const H& a)
   return ret;
 }
 
-const Actions X(const H& a, int n)
-{
-  const F w("PRIM_ROOT_OF_UNITY");
-  F coeff = (F(1) - (w ^ -1)) / (F(144) * (F(1) - (w ^ -2)));
-  Actions ret = (coeff * E_minus(-a) * E_plus(-a))[-n];
-  return ret;
-}
-
 H nu(int n, const H& a)
 {
   const F w("PRIM_ROOT_OF_UNITY");
   H::value_type v = a.getVal();
   return H((w ^ n) * v[0], (w ^ -n) * v[1]);
+}
+
+F sigma(const H& a)
+{
+  using ZZ = F::coeff_type;
+  const F w("PRIM_ROOT_OF_UNITY");
+  return (F(2) ^ (ZZ(nu(3, a).innerProd(a)))) *
+         ((F(1) - (w ^ -1)) ^ (nu(1, a)).innerProd(a)) *
+         ((F(1) - (w ^ -2)) ^ (nu(2, a)).innerProd(a));
+}
+
+const Actions X(const H& a, int n)
+{
+  F coeff = (F(6) ^ (-a.innerProd(a))) * sigma(a);
+  Actions ret = (coeff * E_minus(-a) * E_plus(-a))[-n];
+  return ret;
 }
 
 F epsilon_2(const H& a1, const H& a2)
@@ -736,10 +744,10 @@ F epsilon_2(const H& a1, const H& a2)
 const Actions comX(const H& a, int n1, int n2)
 {
   const F w("PRIM_ROOT_OF_UNITY");
-  return (F(1) / F(6)) * epsilon_2(nu(2, a), a) * (w ^ (-2 * n1)) * X(nu(2, a) + a, n1 + n2)
-         + (F(1) / F(6)) * epsilon_2(nu(-2, a), a) * (w ^ (2 * n1)) * X(nu(-2, a) + a, n1 + n2)
-         + (n1 + n2 != 0 ? Actions() :
-            (F(1) / F(36)) * epsilon_2(-a, a) * F(n1) * (n1 % 2 == 0 ? F(1) : F(-1)) * Actions(Action()))
-         - (F(1) / F(6)) * epsilon_2(-a, a) * (n1 % 2 == 0 ? F(1) : F(-1))
+  return (F(1) / F(6)) * epsilon_2(nu(2, a), a) * (w ^ (-2 * n2)) * X(nu(2, a) + a, n1 + n2)
+         + (F(1) / F(6)) * epsilon_2(nu(-2, a), a) * (w ^ (2 * n2)) * X(nu(-2, a) + a, n1 + n2)
+         + (n1  != -n2 ? Actions() :
+            (F(1) / F(36)) * epsilon_2(-a, a) * F(n2) * (n2 % 2 == 0 ? F(1) : F(-1)) * Actions(Action()))
+         - (F(1) / F(6)) * epsilon_2(-a, a) * (n2 % 2 == 0 ? F(1) : F(-1))
                                             * Actions(Action({Factor(a, n1 + n2)}));
 }
