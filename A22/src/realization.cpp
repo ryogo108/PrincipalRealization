@@ -464,6 +464,7 @@ Action operator*(Action lhs, const Action& rhs)
 
 Actions& Actions::operator*=(const Actions& rhs)
 {
+  if(val.empty() || rhs.empty()) return *this =  Actions();
   Actions::value_type ret;
   for(Actions::const_iterator it1 = val.begin();
       it1 != val.end(); ++it1) {
