@@ -310,6 +310,21 @@ TEST(RealizationTest, straightenTest)
   EXPECT_EQ(expect4, straighten(v4));
 }
 
+TEST(RealizationTest, ActionsMultiplicationTest)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  Actions expect;
+  expect.insert(Actions::Term(Action({Factor(alpha1, -1)}), F(1)));
+  Actions v0;
+  v0.insert(Actions::Term(Action(), F(1)));
+  Actions v1;
+  v1.insert(Actions::Term(Action({Factor(alpha1, -1)}), F(1)));
+  EXPECT_EQ(expect, v0 * v1);
+  EXPECT_EQ(expect, v1 * v0);
+}
+
 TEST(RealizationTest, TestE_minus1)
 {
   const F w("PRIM_ROOT_OF_UNITY");
@@ -418,8 +433,14 @@ TEST(RealizationTest, TestComX1)
   const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
   if(MAX_DEG < 1) return;
   Actions expect1 = X(alpha1, -1) * X(alpha1, 0) - X(alpha1, 0) * X(alpha1, -1);
-  Actions expect2 = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
   EXPECT_EQ(expect1, comX(alpha1, -1, 0));
   if(MAX_DEG < 2) return;
+  Actions expect2 = X(alpha1, -1) * X(alpha1, -1) - X(alpha1, -1) * X(alpha1, -1);
   EXPECT_EQ(expect2, comX(alpha1, -1, -1));
+  if(MAX_DEG < 3) return;
+  Actions expect3 = X(alpha1, -1) * X(alpha1, -2) - X(alpha1, -2) * X(alpha1, -1);
+  EXPECT_EQ(expect3, comX(alpha1, -1, -2));
+  if(MAX_DEG < 4) return;
+  Actions expect4 = X(alpha1, -1) * X(alpha1, -3) - X(alpha1, -3) * X(alpha1, -1);
+  EXPECT_EQ(expect4, comX(alpha1, -1, -3));
 }
