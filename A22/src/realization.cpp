@@ -254,6 +254,17 @@ bool operator==(const Actions& lhs, const Actions& rhs)
   return true;
 }
 
+bool isIncluded(const Actions& sub, const Actions& whole)
+{
+  for(auto iter = sub.begin();
+      iter != sub.end(); ++iter) {
+    auto target = whole.find(iter -> first);
+    if(target == whole.end()) return false;
+    if(iter -> second != target -> second) return false;
+  }
+  return true;
+}
+
 S& S::operator-=(const S& v)
 {
   return *this += (F(-1) * v);
@@ -746,10 +757,10 @@ F epsilon_2(const H& a1, const H& a2)
 const Actions comX(const H& a, int n1, int n2)
 {
   const F w("PRIM_ROOT_OF_UNITY");
-  return (F(1) / F(6)) * epsilon_2(nu(2, a), a) * (w ^ (-2 * n2)) * X(nu(2, a) + a, n1 + n2)
-         + (F(1) / F(6)) * epsilon_2(nu(-2, a), a) * (w ^ (2 * n2)) * X(nu(-2, a) + a, n1 + n2)
+  return (F(1) / F(6)) * epsilon_2(nu(2, a), a) * (w ^ (-2 * n1)) * X(nu(2, a) + a, n1 + n2)
+         + (F(1) / F(6)) * epsilon_2(nu(-2, a), a) * (w ^ (2 * n1)) * X(nu(-2, a) + a, n1 + n2)
          + (n1  != -n2 ? Actions() :
             (F(1) / F(36)) * epsilon_2(-a, a) * F(n2) * (n2 % 2 == 0 ? F(1) : F(-1)) * Actions(Action()))
-         - (F(1) / F(6)) * epsilon_2(-a, a) * (n2 % 2 == 0 ? F(1) : F(-1))
+         - (F(1) / F(6)) * epsilon_2(-a, a) * (n1 % 2 == 0 ? F(1) : F(-1))
                                             * Actions(Action({Factor(a, n1 + n2)}));
 }

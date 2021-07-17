@@ -168,13 +168,14 @@ Actions operator*(const F&, const Actions&);
 Actions operator*(Actions, const Actions&);
 
 bool operator==(const Actions&, const Actions&);
+bool isIncluded(const Actions&, const Actions&);
 
 S operator*(const Actions&, const S&);
 
 class Operators {
 public:
   using size_type = std::size_t;
-  static const size_type DEG0 = 1;
+  static const size_type DEG0 = 5;
   static const size_type MAX_DEG = 2 * DEG0;
   static const size_type MIN_DEG = 0;
   using value_type = std::array<Actions, MAX_DEG + 1>;
