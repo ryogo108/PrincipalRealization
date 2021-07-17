@@ -377,7 +377,7 @@ TEST(RealizationTest, TestX1)
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
   S expect1;
-  expect1.insert(S::Term(Monomial({Factor(alpha1, -1)}), (F(1) + w) / F(72)));
+  expect1.insert(S::Term(Monomial({Factor(alpha1, -1)}), (F(1) + w) / F(6)));
   S expect2;
   expect2.insert(S::Term(Monomial({Factor(alpha1, -1), Factor(alpha1, -1)}),
                          -w / F(864)));
@@ -443,4 +443,19 @@ TEST(RealizationTest, TestComX1)
   if(MAX_DEG < 4) return;
   Actions expect4 = X(alpha1, -1) * X(alpha1, -3) - X(alpha1, -3) * X(alpha1, -1);
   EXPECT_EQ(expect4, comX(alpha1, -1, -3));
+}
+
+TEST(RealizationTest, TestComX2)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  const H alpha2 = {(F(-1) + F(2) * w) / F(3),
+                    (F(1) - F(2) * w) / F(3)};
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  if(MAX_DEG < 1) return;
+  Actions expect1 = X(alpha1, -1) * X(alpha1, 0) - X(alpha1, 0) * X(alpha1, -1);
+  Actions a = (F(-1) / F(6)) * (F(1) + w) * X(alpha1, -1)
+              - (F(2) / F(36)) * Actions(Action({Factor(alpha2, -1)}));
+  EXPECT_EQ(expect1, a);
 }
