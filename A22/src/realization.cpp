@@ -722,14 +722,15 @@ F sigma(const H& a)
 {
   using ZZ = F::coeff_type;
   const F w("PRIM_ROOT_OF_UNITY");
-  return (F(2) ^ (ZZ(nu(3, a).innerProd(a)))) *
+  return (F(2) ^ (ZZ(nu(3, a).innerProd(a)) / ZZ(2))) *
          ((F(1) - (w ^ -1)) ^ (nu(1, a)).innerProd(a)) *
          ((F(1) - (w ^ -2)) ^ (nu(2, a)).innerProd(a));
 }
 
 const Actions X(const H& a, int n)
 {
-  F coeff = (F(6) ^ (-a.innerProd(a))) * sigma(a);
+  using ZZ = F::coeff_type;
+  F coeff = (F(6) ^ (ZZ(-a.innerProd(a)) / ZZ(2))) * sigma(a);
   Actions ret = (coeff * E_minus(-a) * E_plus(-a))[-n];
   return ret;
 }
