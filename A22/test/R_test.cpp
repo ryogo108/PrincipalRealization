@@ -446,3 +446,12 @@ TEST(RealizationTest, TestComX1)
   Actions expect4_1 = X(alpha1, -2) * X(alpha1, -2) - X(alpha1, -2) * X(alpha1, -2);
   EXPECT_EQ(isIncluded(comX(alpha1, -2, -2), expect4), true);
 }
+
+TEST(ThmTest, Prop7)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  EXPECT_EQ(E_minus(alpha1) * X(alpha1), X(-alpha1) * E_plus(-alpha1));
+}

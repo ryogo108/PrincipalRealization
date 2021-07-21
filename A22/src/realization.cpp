@@ -254,6 +254,11 @@ bool operator==(const Actions& lhs, const Actions& rhs)
   return true;
 }
 
+bool operator!=(const Actions& lhs, const Actions& rhs)
+{
+  return !(lhs == rhs);
+}
+
 bool isIncluded(const Actions& sub, const Actions& whole)
 {
   for(auto iter = sub.begin();
@@ -625,6 +630,16 @@ Operators& Operators::operator+=(const Operators& rhs)
   return *this;
 }
 
+bool operator==(const Operators& lhs, const Operators& rhs)
+{
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  const int MIN_DEG = int(Operators::MIN_DEG) - int(Operators::DEG0);
+  for(int i = MIN_DEG; i <= MAX_DEG; ++i) {
+    if(lhs[i] != rhs[i]) return false;
+  }
+  return true;
+}
+
 Operators operator*(const F& lhs, const Operators& rhs)
 {
   const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
@@ -738,12 +753,17 @@ F sigma(const H& a)
          ((F(1) - (w ^ -2)) ^ (nu(2, a)).innerProd(a));
 }
 
-const Actions X(const H& a, int n)
+const Operators X(const H& a)
 {
   using ZZ = F::coeff_type;
   F coeff = (F(6) ^ (ZZ(-a.innerProd(a)) / ZZ(2))) * sigma(a);
-  Actions ret = (coeff * E_minus(-a) * E_plus(-a))[-n];
-  return ret;
+  return (coeff * E_minus(-a) * E_plus(-a));
+
+}
+
+const Actions X(const H& a, int n)
+{
+  return X(a)[-n];
 }
 
 F epsilon_2(const H& a1, const H& a2)

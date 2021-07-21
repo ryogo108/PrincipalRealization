@@ -168,6 +168,7 @@ Actions operator*(const F&, const Actions&);
 Actions operator*(Actions, const Actions&);
 
 bool operator==(const Actions&, const Actions&);
+bool operator!=(const Actions&, const Actions&);
 bool isIncluded(const Actions&, const Actions&);
 
 S operator*(const Actions&, const S&);
@@ -205,11 +206,13 @@ private:
   value_type val;
 };
 
+bool operator==(const Operators&, const Operators&);
 Operators operator*(const F&, const Operators&);
 Operators operator*(const Operators&, const Operators&);
 
 const Operators E_plus(const H& a);
 const Operators E_minus(const H& a);
+const Operators X(const H&);
 const Actions X(const H&, int);
 
 H nu(int n, const H&);
