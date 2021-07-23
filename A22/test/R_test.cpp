@@ -453,5 +453,14 @@ TEST(ThmTest, Prop7)
   const H alpha1 = {(F(2) - w) / F(3),
                     (F(1) + w) / F(3)};
   const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
-  EXPECT_EQ(E_minus(alpha1) * X(alpha1), X(-alpha1) * E_plus(-alpha1));
+  EXPECT_EQ(E_minus(alpha1) * X(alpha1), ((F(1) + w) / F(36)) * X(F(0) * alpha1) * E_plus(-alpha1));
+}
+
+TEST(CalculationTest, TestXX)
+{
+  const F w("PRIM_ROOT_OF_UNITY");
+  const H alpha1 = {(F(2) - w) / F(3),
+                    (F(1) + w) / F(3)};
+  const int MAX_DEG = Operators::MAX_DEG - Operators::DEG0;
+  EXPECT_EQ(Operators(), X(alpha1) * X(alpha1));
 }
